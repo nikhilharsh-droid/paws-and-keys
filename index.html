@@ -963,7 +963,7 @@ function gameActs(pr, again, againLabel, homeBtn){
 }
 function nextStepCard(){
   const s = nextStep(); if(s.kind==='free') return '';
-  if(s.kind==='lesson') return `<button class="card nextstep" data-act="step"><span class="ns-ic">${LESSONS[s.idx].kind==='hands'?'✋':'⌨️'}</span><span class="ns-tx"><small>Next step</small><b>Lesson: ${esc(LESSONS[s.idx].title)}</b>${P.path && P.path.m>=100 && P.path.lesson===s.idx-1 ? `<span>You mastered ${keyChipsHTML(focusKeysOf(P.path.lesson))}. Time to learn more!</span>` : '<span>Learn new keys, then practice them in a game.</span>'}</span><span class="btn big grass ns-go">Go</span></button>`;
+  if(s.kind==='lesson') return `<button class="card nextstep" data-act="step"><span class="ns-ic">${LESSONS[s.idx].kind==='hands'?'✋':'⌨️'}</span><span class="ns-tx"><small>Next step</small><b>Lesson: ${esc(LESSONS[s.idx].title)}</b>${P.path && P.path.m>=100 && P.path.lesson===s.idx-1 ? `<span>You mastered ${keyChipsHTML(focusKeysOf(P.path.lesson))}. Time to learn more!</span>` : (LESSONS[s.idx].kind==='hands' ? '<span>Learn where your fingers live on the keyboard.</span>' : LESSONS[s.idx].keys ? '<span>Learn new keys, then practice them in a game.</span>' : '<span>Type real words and sentences.</span>')}</span><span class="btn big grass ns-go">Go</span></button>`;
   return `<button class="card nextstep game" data-act="step"><span class="ns-ic">🎮</span><span class="ns-tx"><small>Next step</small><b>Practice ${keyChipsHTML(focusKeys())} in ${GAME_NAME[s.game]}</b>${meterHTML(P.path.m)}</span><span class="btn big grass ns-go">Play</span></button>`;
 }
 function focusKeysOf(i){ return [...(LESSONS[i].keys||'').replace(/[^a-z]/g,'')]; }
