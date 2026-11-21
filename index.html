@@ -71,6 +71,9 @@ h1,h2,h3{font-family:var(--display);margin:0;line-height:1.05;text-wrap:balance}
 
 /* home */
 .home{display:grid;grid-template-columns:minmax(260px,340px) 1fr;gap:18px;height:100%;min-height:0}
+.lcol{display:flex;flex-direction:column;gap:14px;min-height:0}
+.lcol .stage-card{flex:1}
+.lcol .goal{grid-column:auto}
 .stage-card{position:relative;overflow:hidden;display:flex;flex-direction:column;min-height:0}
 .stage{flex:1;min-height:200px;position:relative;border-bottom:3px solid var(--line);overflow:hidden}
 .stage .av{position:absolute;left:6%;bottom:-6%;width:62%;max-width:220px}
@@ -78,7 +81,7 @@ h1,h2,h3{font-family:var(--display);margin:0;line-height:1.05;text-wrap:balance}
 .stage-card .row{display:flex;gap:10px;padding:12px;flex-wrap:wrap}
 .stage-card .row .btn{flex:1}
 .tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;align-content:start;min-height:0}
-.tile{border:3px solid var(--line);border-radius:var(--r);box-shadow:0 6px 0 var(--line);padding:14px;display:flex;flex-direction:column;gap:6px;align-items:flex-start;text-align:left;min-height:140px;position:relative;overflow:hidden;transition:transform .1s}
+.tile{border:3px solid var(--line);border-radius:var(--r);box-shadow:0 6px 0 var(--line);padding:14px;display:flex;flex-direction:column;gap:6px;align-items:flex-start;text-align:left;min-height:118px;position:relative;overflow:hidden;transition:transform .1s}
 .tile:hover{transform:translateY(-3px)}
 .tile:active{transform:translateY(4px);box-shadow:0 2px 0 var(--line)}
 .tile h3{font-size:28px;font-weight:800}
@@ -289,7 +292,18 @@ h1,h2,h3{font-family:var(--display);margin:0;line-height:1.05;text-wrap:balance}
 .goal{display:grid;grid-template-columns:1fr auto;grid-template-rows:auto auto;gap:8px 12px;align-content:center}
 .goal .gt{display:flex;justify-content:space-between;gap:8px}
 .goal .bar{grid-row:2}
-.goal .chest{grid-row:1/3;grid-column:2;width:54px;align-self:center}
+.goal .chest{grid-row:1/4;grid-column:2;width:72px;align-self:center;position:relative;border:0;background:none;padding:0;cursor:pointer}
+.goal .chest svg{width:100%;display:block}
+.goal .chest.shut{opacity:.6;filter:saturate(.6)}
+.goal .chest.ready{animation:wiggle 1.2s infinite}
+.goal .open-tag{position:absolute;left:50%;bottom:-10px;transform:translateX(-50%);background:var(--berry);color:#fff;font-family:var(--display);font-weight:800;font-size:14px;padding:2px 10px;border-radius:999px;white-space:nowrap}
+.goal.ready{background:#FFF4CC}
+.goal .gmsg{grid-row:3;margin:0;font-size:15px;color:var(--ink2)}
+.chest-pop{width:140px;margin:0 auto;animation:toastin .4s}
+.tile .gk{margin:2px 0 0;font-size:14px;color:var(--ink2)}
+.tile .gk b{font-family:var(--kid);letter-spacing:.06em;color:var(--ink)}
+.lblbtn{display:inline-flex;align-items:center;gap:6px;min-height:52px;padding:4px 14px 4px 10px;border-radius:16px;font-family:var(--display);font-weight:800;font-size:18px}
+.lblbtn svg{width:30px;height:30px}
 /* finger gym */
 .gym{display:flex;flex-direction:column;gap:14px}
 .gcoach{display:flex;gap:18px;align-items:center;padding:14px 18px;flex-wrap:wrap}
@@ -324,7 +338,34 @@ h1,h2,h3{font-family:var(--display);margin:0;line-height:1.05;text-wrap:balance}
 .hh .prompt{justify-content:flex-start;padding-top:10px}
 .hh .prompt-wrap{flex:1 0 auto}
 .hh .prompt .lbl{display:none}
+/* learning path */
+.nextstep{grid-column:1/-1;display:flex;align-items:center;gap:14px;padding:12px 16px;text-align:left;background:#E7F0FF;border:3px solid var(--line);cursor:pointer;font:inherit;color:inherit}
+.nextstep.game{background:#FFF4CC}
+.nextstep .ns-ic{font-size:44px;line-height:1}
+.nextstep .ns-tx{flex:1;display:flex;flex-direction:column;gap:4px;min-width:0}
+.nextstep small{font-family:var(--display);font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--ink2);font-size:13px}
+.nextstep b{font-family:var(--display);font-size:22px;line-height:1.2}
+.nextstep .ns-go{pointer-events:none;flex:none}
+.meter{position:relative;height:26px;border:3px solid var(--line);border-radius:999px;background:var(--paper2);overflow:hidden;max-width:360px;width:100%}
+.meter i{position:absolute;inset:0 auto 0 0;background:linear-gradient(90deg,var(--grass),#7FD99F);transition:width .6s}
+.meter span{position:relative;display:block;text-align:center;font-family:var(--display);font-weight:800;font-size:15px;line-height:20px}
+.pathnote{display:flex;flex-direction:column;align-items:center;gap:6px;margin:4px 0 8px;padding:8px 12px;border-radius:16px;background:#FFF4CC}
+.pathnote p{margin:0}
+.pathnote .kchip{min-width:28px;height:28px;font-size:17px}
+/* saving */
+.savebtn{display:inline-flex;align-items:center;gap:6px;min-height:46px;padding:4px 14px 4px 8px;border-radius:999px;font-family:var(--display);font-weight:800;font-size:18px;background:#E3F7EA}
+.savebtn .ck,.savedline .ck,.savedsub .ck{display:inline-grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--grass);color:#fff;font-size:16px;font-weight:900}
+.savebtn.bad{background:#FFE1E8;color:var(--berry-d)} .savebtn.bad .ck{background:var(--berry)}
+.savebtn.flash{animation:savepop .9s}
+@keyframes savepop{0%{transform:scale(1)}25%{transform:scale(1.15);box-shadow:0 0 0 6px rgba(63,191,115,.35)}100%{transform:scale(1)}}
+.savedline{display:inline-flex;align-items:center;gap:8px;margin:2px auto 6px;padding:4px 14px 4px 6px;border-radius:999px;background:#E3F7EA;font-family:var(--display);font-weight:700;font-size:17px}
+.savedline.bad{background:#FFE1E8;color:var(--berry-d);padding:6px 14px}
+.savedsub{display:flex;align-items:center;justify-content:center;gap:8px;font-size:17px}
+.vrow{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:8px 0}
+.vrow select{font:inherit;font-size:16px;padding:8px 10px;border:3px solid var(--line);border-radius:12px;background:var(--paper);color:var(--ink);max-width:100%;min-width:0;flex:1 1 220px}
 @media (max-width:900px){
+  .lblbtn span{display:none}
+  .savebtn span:not(.ck){display:none}
   .home,.studio{grid-template-columns:1fr;height:auto}
   .tiles{grid-template-columns:repeat(2,1fr)}
   .tile.lessons{grid-column:1/-1}
@@ -718,6 +759,7 @@ const ICON = {
   lock:`<svg viewBox="0 0 32 32" aria-hidden="true"><rect x="7" y="14" width="18" height="14" rx="3" fill="#8C98B8"/><path d="M11,14 V10 A5,5 0 0 1 21,10 V14" fill="none" stroke="#8C98B8" stroke-width="3.5"/></svg>`,
   pause:`<svg viewBox="0 0 32 32" aria-hidden="true"><rect x="8" y="6" width="6" height="20" rx="2" fill="#22305A"/><rect x="18" y="6" width="6" height="20" rx="2" fill="#22305A"/></svg>`,
   flag:`<svg viewBox="0 0 40 80" aria-hidden="true"><rect x="4" y="4" width="4" height="74" fill="#22305A"/><path d="M8,6 H36 L28,18 L36,30 H8 Z" fill="#FF5D8F" stroke="#22305A" stroke-width="2.5"/><rect x="14" y="6" width="7" height="8" fill="#fff"/><rect x="21" y="14" width="7" height="8" fill="#fff"/><rect x="14" y="22" width="7" height="8" fill="#fff"/></svg>`,
+  chestOpen:`<svg viewBox="0 0 64 60" aria-hidden="true"><path d="M9,27 L13,5 Q32,-1 51,5 L55,27 Z" fill="#E09550" stroke="#22305A" stroke-width="3"/><path d="M14,10 Q32,5 50,10" stroke="#22305A" stroke-width="2" fill="none"/><ellipse cx="32" cy="28" rx="24" ry="6" fill="#FFD43B" stroke="#22305A" stroke-width="2.5"/><circle cx="23" cy="25" r="4.5" fill="#FFE66D" stroke="#22305A" stroke-width="2"/><circle cx="34" cy="23" r="4.5" fill="#FFE66D" stroke="#22305A" stroke-width="2"/><circle cx="43" cy="26" r="4" fill="#FFE66D" stroke="#22305A" stroke-width="2"/><rect x="6" y="28" width="52" height="29" rx="5" fill="#C67A3A" stroke="#22305A" stroke-width="3"/><path d="M6,40 H58" stroke="#22305A" stroke-width="3"/></svg>`,
   chest:`<svg viewBox="0 0 64 56" aria-hidden="true"><rect x="6" y="22" width="52" height="30" rx="5" fill="#C67A3A" stroke="#22305A" stroke-width="3"/><path d="M6,24 Q6,6 32,6 Q58,6 58,24 Z" fill="#E09550" stroke="#22305A" stroke-width="3"/><rect x="28" y="20" width="8" height="12" rx="2" fill="#FFD43B" stroke="#22305A" stroke-width="2.5"/><path d="M6,34 H58" stroke="#22305A" stroke-width="3"/></svg>`
 };
 function bubbleArt(){return `<svg class="art" viewBox="0 0 100 100" aria-hidden="true"><circle cx="58" cy="56" r="30" fill="rgba(255,255,255,.6)" stroke="#22305A" stroke-width="3"/><circle cx="24" cy="30" r="14" fill="rgba(255,255,255,.6)" stroke="#22305A" stroke-width="3"/><text x="58" y="68" text-anchor="middle" font-family="Andika,sans-serif" font-weight="700" font-size="34" fill="#22305A">f</text><circle cx="48" cy="44" r="5" fill="#fff"/></svg>`;}
@@ -769,7 +811,17 @@ function loadDB(){
 }
 let saveT = null;
 function save(){ if(P) P.updated = Date.now(); clearTimeout(saveT); saveT = setTimeout(saveNow, 250); }
-function saveNow(){ clearTimeout(saveT); try{ localStorage.setItem(STORE_KEY, JSON.stringify(DB)); storageOK = true; }catch(e){ storageOK = false; } }
+function saveNow(){ clearTimeout(saveT); try{ localStorage.setItem(STORE_KEY, JSON.stringify(DB)); storageOK = !!localStorage.getItem(STORE_KEY); }catch(e){ storageOK = false; } flashSaved(); return storageOK; }
+function saveBtnHTML(){ return storageOK ? `<span class="ck">✓</span><span>Saved</span>` : `<span class="ck">!</span><span>Not saving</span>`; }
+let flashT = null;
+function flashSaved(){
+  const b = document.getElementById('saveBtn'); if(!b) return;
+  b.innerHTML = saveBtnHTML(); b.classList.toggle('bad', !storageOK);
+  b.classList.remove('flash'); void b.offsetWidth; b.classList.add('flash');
+  clearTimeout(flashT); flashT = setTimeout(()=>b.classList.remove('flash'), 1200);
+}
+function savedNote(){ saveNow(); return storageOK ? `<p class="savedline"><span class="ck">✓</span> Saved on this Chromebook</p>` : `<p class="savedline bad">This browser is not saving. Ask a grown-up.</p>`; }
+function askPersist(){ try{ navigator.storage && navigator.storage.persist && navigator.storage.persist(); }catch(e){} }
 window.addEventListener('pagehide', saveNow);
 document.addEventListener('visibilitychange', ()=>{ if(document.hidden) saveNow(); });
 
@@ -795,7 +847,8 @@ function blankPlayer(name){
     owned:[], pets:[], activePet:null, lessons:{}, stickers:{}, badges:{},
     games:{bubble:{plays:0,best:0},dash:{plays:0,wins:0},dig:{plays:0}},
     stats:{keys:0,correct:0,ms:0,lessonsDone:0,bestWpm:0,recentWpm:[]},
-    daily:{day:'',count:0,claimed:false,gift:''}, streak:{count:0,last:''},
+    daily:{day:'',count:0,claimed:false,gift:'',opened:''}, streak:{count:0,last:''},
+    path:{lesson:-1,m:0,plays:0},
     fingers:Object.fromEntries([...FINGER_ORDER,'th'].map(f=>[f,{ok:0,miss:0}])), keyMiss:{},
     tech:{quizBest:0,quizPlays:0,gymDone:0,eyesUpLessons:0,handsHome:0},
     settings:{sound:true,voice:true,size:'short',eyesUp:false}};
@@ -824,10 +877,43 @@ const SFX = {
   pet:()=>{tone(700,.1,'sine',.05,0,1000);tone(900,.12,'sine',.04,.1,1200);}
 };
 function sfx(n){ if(P && !P.settings.sound) return; try{ SFX[n] && SFX[n](); }catch(e){} }
-function say(t){
-  if(P && !P.settings.voice) return;
-  try{ const s = window.speechSynthesis; if(!s) return; s.cancel(); const u = new SpeechSynthesisUtterance(t); u.rate=.9; u.pitch=1.15; s.speak(u); }catch(e){}
+let VOICES = [], VOICE = null;
+function voiceScore(v){
+  const n = v.name; let s = 0;
+  if(/natural|neural|enhanced|premium/i.test(n)) s += 100;
+  if(/^Google US English/i.test(n)) s += 80;
+  else if(/^Google UK English Female/i.test(n)) s += 75;
+  else if(/^Google/i.test(n)) s += 60;
+  if(/Samantha|Aria|Jenny|Ava|Allison|Susan|Karen|Moira|Tessa/i.test(n)) s += 50;
+  if(/espeak|compact|Fred|Albert|Zarvox|Trinoids|Whisper|Bad News|Bells|Boing|Bubbles|Cellos|Wobble|Jester|Organ|Superstar|Ralph|Junior/i.test(n)) s -= 80;
+  if(/^en[-_]US/i.test(v.lang)) s += 6; else if(/^en[-_]GB/i.test(v.lang)) s += 4;
+  return s;
 }
+function loadVoices(){
+  try{
+    const s = window.speechSynthesis; if(!s) return;
+    VOICES = s.getVoices().filter(v=>/^en/i.test(v.lang)).sort((a,b)=>voiceScore(b)-voiceScore(a));
+    VOICE = (DB.voiceName && VOICES.find(v=>v.name===DB.voiceName)) || VOICES[0] || null;
+    if(currentScreen==='grown' && typeof fillVoices==='function') fillVoices();
+  }catch(e){}
+}
+try{ if(window.speechSynthesis){ speechSynthesis.addEventListener ? speechSynthesis.addEventListener('voiceschanged', loadVoices) : (speechSynthesis.onvoiceschanged = loadVoices); } }catch(e){}
+function speak(t){
+  try{
+    const s = window.speechSynthesis; if(!s) return;
+    if(!VOICES.length) loadVoices();
+    const go = () => {
+      const u = new SpeechSynthesisUtterance(t);
+      if(VOICE){ u.voice = VOICE; u.lang = VOICE.lang; }
+      const nice = VOICE && /natural|neural|enhanced|premium|^Google/i.test(VOICE.name);
+      u.rate = (DB.voiceRate || 1) * (nice ? 1 : .95);
+      u.pitch = nice ? 1 : 1.05;
+      s.speak(u);
+    };
+    if(s.speaking || s.pending){ s.cancel(); setTimeout(go, 60); } else go();
+  }catch(e){}
+}
+function say(t){ if(P && !P.settings.voice) return; speak(t); }
 const sayKey = ch => KEY_SAY[ch] || ch.toUpperCase();
 
 /* ---------- player helpers ---------- */
@@ -841,7 +927,46 @@ function owns(cat, id){
   if(cat==='pet') return P.pets.some(p=>p.kind===id);
   const item = find(CATS[cat], id); return item.price===0 || P.owned.includes(cat+':'+id);
 }
-function gameLetters(){ const i = Math.max(nextLesson(), 1); const k = lessonDone(LESSONS.length-1)?knownKeysFor(LESSONS.length-1):knownKeysFor(i); return [...new Set(k.replace(/[^a-z]/g,''))]; }
+function gameLetters(){ let k = knownNow().replace(/[^a-z]/g,''); if(k.length < 2) k = (LESSONS[1].keys||'fj').replace(/[^a-z]/g,''); const u = [...new Set(k)]; const f = focusKeys().filter(c=>u.includes(c)); return f.length ? [...u, ...f, ...f, ...f] : u; }
+function gameKeysHTML(){ const L = [...new Set(gameLetters())]; return `<p class="gk">Your keys: <b>${esc(L.join(' '))}</b></p>`; }
+
+/* ---------- learning path: lesson, then practice games until mastered, then the next lesson ---------- */
+const GAME_NAME = {bubble:'Bubble Pop', dash:'Pet Dash', dig:'Treasure Dig'};
+const GAME_ORDER = ['bubble','dash','dig'];
+function practicing(){ const p = P.path; if(!p || p.lesson<0 || p.m>=100) return false; const L = LESSONS[p.lesson]; return !!(L && L.keys && L.kind!=='hands' && nextLesson()===p.lesson+1 && !lessonDone(p.lesson+1)); }
+function focusKeys(){ return practicing() ? [...LESSONS[P.path.lesson].keys.replace(/[^a-z]/g,'')] : []; }
+function nextStep(){
+  if(practicing()) return {kind:'game', game:GAME_ORDER[P.path.plays % GAME_ORDER.length]};
+  if(lessonDone(LESSONS.length-1)) return {kind:'free'};
+  return {kind:'lesson', idx:nextLesson()};
+}
+const goStep = s => s.kind==='lesson' ? go('lesson', s.idx) : s.kind==='game' ? go(s.game) : go('home');
+function stepLabel(s){ return s.kind==='lesson' ? 'Next lesson: '+LESSONS[s.idx].title : s.kind==='game' ? 'Practice: '+GAME_NAME[s.game] : 'Home'; }
+function meterHTML(m){ return `<div class="meter" role="img" aria-label="Mastery ${m} percent"><i style="width:${m}%"></i><span>${m>=100?'Mastered!':'Mastery '+m+'%'}</span></div>`; }
+function keyChipsHTML(keys){ return keys.map(k=>`<span class="kchip" style="--fc:${FINGER_COL[FINGER[k]]}">${esc(k)}</span>`).join(' '); }
+// call when a game ends; acc is 0..1
+function practiceResult(acc){
+  const was = practicing();
+  if(!was) return {note:'', after:nextStep(), was};
+  const keys = focusKeys();
+  const pts = acc>=.9 ? 50 : acc>=.8 ? 35 : acc>=.65 ? 20 : 10;
+  P.path.plays++; P.path.m = Math.min(100, P.path.m + pts); save();
+  const done = P.path.m >= 100;
+  if(done) setTimeout(()=>say('You mastered your new keys! Time for the next lesson.'), 1200);
+  const note = `<div class="pathnote"><p>${done ? `You mastered ${keyChipsHTML(keys)}!` : `Practicing ${keyChipsHTML(keys)}`}</p>${meterHTML(P.path.m)}${done ? '' : `<p class="note">${acc>=.8 ? 'Great typing! One more round to master them.' : 'Slow and steady wins. Go for right on the first try!'}</p>`}</div>`;
+  return {note, after:nextStep(), was};
+}
+function gameActs(pr, again, againLabel, homeBtn){
+  const step = pr.after;
+  if(step.kind==='free' || (!pr.was && step.kind==='lesson' && false)) return `<div class="acts">${homeBtn}<button class="btn big grass" data-m="again" data-default>${againLabel}</button></div>`;
+  return `<div class="acts">${homeBtn}<button class="btn" data-m="again">${againLabel}</button><button class="btn big grass" data-m="step" data-default>${esc(stepLabel(step))}</button></div>`;
+}
+function nextStepCard(){
+  const s = nextStep(); if(s.kind==='free') return '';
+  if(s.kind==='lesson') return `<button class="card nextstep" data-act="step"><span class="ns-ic">${LESSONS[s.idx].kind==='hands'?'✋':'⌨️'}</span><span class="ns-tx"><small>Next step</small><b>Lesson: ${esc(LESSONS[s.idx].title)}</b>${P.path && P.path.m>=100 && P.path.lesson===s.idx-1 ? `<span>You mastered ${keyChipsHTML(focusKeysOf(P.path.lesson))}. Time to learn more!</span>` : '<span>Learn new keys, then practice them in a game.</span>'}</span><span class="btn big grass ns-go">Go</span></button>`;
+  return `<button class="card nextstep game" data-act="step"><span class="ns-ic">🎮</span><span class="ns-tx"><small>Next step</small><b>Practice ${keyChipsHTML(focusKeys())} in ${GAME_NAME[s.game]}</b>${meterHTML(P.path.m)}</span><span class="btn big grass ns-go">Play</span></button>`;
+}
+function focusKeysOf(i){ return [...(LESSONS[i].keys||'').replace(/[^a-z]/g,'')]; }
 function gameWords(){
   const L = gameLetters();
   let w = WORDS.filter(x=>[...x].every(c=>L.includes(c)));
@@ -864,7 +989,7 @@ function recordActivity(ms){
   if(P.daily.day !== t){ P.daily.day = t; P.daily.count = 0; P.daily.claimed = false; }
   P.daily.count++;
   let msg = null;
-  if(P.daily.count>=3 && !P.daily.claimed){ P.daily.claimed = true; addCoins(25); msg = 'Daily goal done! +25 coins'; P.badges.goal = P.badges.goal || Date.now(); }
+  if(P.daily.count>=3 && !P.daily.claimed){ P.daily.claimed = true; msg = 'Daily goal done! Open your treasure chest on the home screen!'; P.badges.goal = P.badges.goal || Date.now(); }
   save(); return msg;
 }
 function checkBadges(extra={}){
@@ -927,20 +1052,22 @@ function go(name, arg){
 }
 function topbar(){
   return `<div class="topbar wrap">
-    <button class="btn icon-btn" data-act="home" aria-label="Home">${ICON.home}</button>
+    <button class="btn lblbtn" data-act="home" aria-label="Home">${ICON.home}<span>Home</span></button>
     <div class="who"><span class="face">${faceSVG(P.avatar)}</span>${esc(P.name)}</div>
     <div class="spacer"></div>
     <span class="chip" title="Days in a row">${ICON.flame}${showStreak()}</span>
     <span class="chip" title="Stars">${ICON.star}${totalStars()}</span>
     <span class="chip" id="coinChip" title="Coins">${ICON.coin}<span id="coinN">${P.coins}</span></span>
+    <button class="btn savebtn${storageOK?'':' bad'}" id="saveBtn" data-act="savebtn" aria-label="Save">${saveBtnHTML()}</button>
     <button class="btn icon-btn" data-act="sound" aria-label="Sound on or off">${P.settings.sound?ICON.sound:ICON.mute}</button>
-    <button class="btn icon-btn" data-act="settings" aria-label="Settings">${ICON.gear}</button>
+    <button class="btn lblbtn" data-act="settings" aria-label="Settings">${ICON.gear}<span>Settings</span></button>
   </div>`;
 }
 const ACT = {
   home: ()=>go('home'),
   sound: b=>{ P.settings.sound=!P.settings.sound; save(); b.innerHTML = P.settings.sound?ICON.sound:ICON.mute; if(P.settings.sound) sfx('coin'); },
   settings: ()=>openSettings(),
+  savebtn: ()=>openSaved(),
   profiles: ()=>{ P=null; go('profiles'); },
   grown: ()=>openGate()
 };
@@ -975,6 +1102,7 @@ function openSettings(){
       <button class="btn ${s.size==='regular'?'sun':''}" data-m="regular">Regular</button>
     </div>
     <div class="acts">
+      <button class="btn grass" data-m="save">Save</button>
       <button class="btn wave" data-m="switch">Switch player</button>
       <button class="btn" data-m="grown">Grown-ups</button>
       <button class="btn berry" data-m="close" data-default>Done</button>
@@ -983,12 +1111,34 @@ function openSettings(){
     voice:()=>{s.voice=!s.voice; save(); openSettings(); say('Read aloud is on');},
     short:()=>{s.size='short'; save(); openSettings();},
     regular:()=>{s.size='regular'; save(); openSettings();},
+    save:()=>openSaved(),
     switch:()=>{ closeModal(); P=null; go('profiles'); },
     grown:()=>{ closeModal(); openGate(); },
     close:()=>{ closeModal(); const sb=$('[data-act="sound"]'); if(sb) sb.innerHTML = P.settings.sound?ICON.sound:ICON.mute; }
   });
 }
 let currentScreen = 'home';
+function openSaved(){
+  const ok = saveNow();
+  if(ok) sfx('coin');
+  openModal(ok ? `<div style="font-size:64px;line-height:1">✅</div><h2>Saved!</h2>
+    <p>${esc(P.name)}'s coins, pets, looks and lessons are saved on this Chromebook.</p>
+    <p class="note">The game saves by itself every time you play, so you never have to press Save. Just come back to the same link.</p>
+    <div class="acts"><button class="btn" data-m="code">Backup code</button><button class="btn big grass" data-m="ok" data-default>Yay!</button></div>`
+   : `<h2>Not saving</h2><p>This browser is blocking saving, so progress will be lost when the page closes. This happens in a guest or incognito window. Ask a grown-up to open the game in a normal Chrome window.</p>
+    <div class="acts"><button class="btn" data-m="code">Backup code</button><button class="btn big" data-m="ok" data-default>OK</button></div>`, {
+    ok: closeModal,
+    code: ()=>showCode('Backup code for '+P.name, [P])
+  });
+  if(ok) say('Saved!');
+}
+function showCode(title, players){
+  const code = encodeCode(players);
+  openModal(`<h2>${esc(title)}</h2><p class="note">This code is a copy of the progress. If it ever disappears, a grown-up can paste it into Grown-ups to bring it back. Keep it somewhere safe, like a note or an email to yourself.</p><textarea id="codeOut" readonly style="width:100%;min-height:140px;font-family:ui-monospace,monospace;font-size:12px;border:3px solid var(--line);border-radius:14px;padding:8px;box-sizing:border-box">${esc(code)}</textarea><div class="acts"><button class="btn wave" data-m="copy">Copy</button><button class="btn" data-m="close" data-default>Close</button></div><span id="cmsg" class="note"></span>`, {
+    copy: ()=>{ const ta=$('#codeOut'); const done=()=>$('#cmsg').textContent='Copied!'; try{ navigator.clipboard.writeText(code).then(done, ()=>{ ta.select(); $('#cmsg').textContent='Press Ctrl+C to copy.'; }); }catch(e){ ta.select(); $('#cmsg').textContent='Press Ctrl+C to copy.'; } },
+    close: closeModal
+  });
+}
 
 /* ---------- keyboard component ---------- */
 function keyboardHTML(known, hands=true, cls=''){
@@ -1133,6 +1283,7 @@ SCREENS.profiles = () => {
         return `<button class="card pcard" data-act="pick" data-id="${p.id}"><div class="pic" style="background:${find(BG,p.avatar.bg).css}">${avatarSVG(p.avatar)}${pet?petSVG(pet):''}</div><div class="nm">${esc(p.name)}</div><span class="chip">${ICON.coin}${p.coins}</span></button>`; }).join('')}
       <button class="card pcard add" data-act="new"><div class="plus">+</div><div class="nm">New player</div></button>
     </div>
+    ${list.length && storageOK?'<p class="sub savedsub"><span class="ck">✓</span> Progress saves by itself on this Chromebook</p>':''}
     <div class="footlinks"><button class="btn small" data-act="grown">Grown-ups</button></div>
     ${storageOK?'':'<p class="sub" style="color:var(--berry-d)">This browser is blocking saving. Progress will be lost when the page closes.</p>'}
   </div>`;
@@ -1195,30 +1346,51 @@ SCREENS.home = () => {
   const nl = nextLesson(), pet = activePet();
   const doneCount = LESSONS.filter((l,i)=>lessonDone(i)).length;
   const today = dayStr(); const dc = P.daily.day===today ? P.daily.count : 0;
-  app.innerHTML = topbar() + `<div class="main wrap"><div class="home">
+  app.innerHTML = topbar() + `<div class="main wrap"><div class="home"><div class="lcol">
     <div class="card stage-card">
       <div class="stage" style="background:${find(BG,P.avatar.bg).css}">${avatarSVG(P.avatar)}<span data-act="petme">${petSVG(pet)}</span></div>
       <div style="padding:10px 14px 0;font-family:var(--display);font-weight:800;font-size:22px">${esc(P.name)} and ${esc(pet.name)}</div>
       <div class="row"><button class="btn grape" data-act="studio">Dress Up</button><button class="btn berry" data-act="pets">Pets</button></div>
     </div>
+    ${goalCard(dc, today)}</div>
     <div class="tiles">
+      ${nextStepCard()}
       <button class="tile lessons" data-act="map"><h3>Typing Lessons</h3><p>Next up: <b>${esc(LESSONS[nl].title)}</b></p><p>${doneCount} of ${LESSONS.length} done</p>${keysArt()}</button>
       <button class="tile gymt" data-act="gym"><h3>Finger Gym</h3><p>${trickyFinger()?'Practice your '+esc(FINGER_NAME[trickyFinger()].toLowerCase()):'Quiz and drills for every finger'}</p><span class="art" style="font-size:62px;display:grid;place-items:center">💪</span></button>
-      <button class="tile bubble" data-act="bubble"><h3>Bubble Pop</h3><p>Pop letters before they float away</p>${bubbleArt()}</button>
-      <button class="tile dash" data-act="dash"><h3>Pet Dash</h3><p>Type words to race your pet</p><svg class="art" viewBox="0 0 120 120">${petSVG(pet).replace(/^<svg[^>]*>|<\/svg>$/g,'')}</svg></button>
-      <button class="tile dig" data-act="dig"><h3>Treasure Dig</h3><p>Type words, dig up stickers</p>${shovelArt()}</button>
+      <button class="tile bubble" data-act="bubble"><h3>Bubble Pop</h3><p>Pop letters before they float away</p>${gameKeysHTML()}${bubbleArt()}</button>
+      <button class="tile dash" data-act="dash"><h3>Pet Dash</h3><p>Type words to race your pet</p>${gameKeysHTML()}<svg class="art" viewBox="0 0 120 120">${petSVG(pet).replace(/^<svg[^>]*>|<\/svg>$/g,'')}</svg></button>
+      <button class="tile dig" data-act="dig"><h3>Treasure Dig</h3><p>Type words, dig up stickers</p>${gameKeysHTML()}${shovelArt()}</button>
       <button class="tile stickers" data-act="stickers"><h3>Stickers</h3><p>${Object.keys(P.stickers).length} of ${STICKERS.length} found</p><span class="art" style="font-size:62px;display:grid;place-items:center">🦖</span></button>
       <button class="tile badges" data-act="badges"><h3>Badges</h3><p>${BADGES.filter(b=>P.badges[b.id]).length} of ${BADGES.length}</p><span class="art" style="font-size:62px;display:grid;place-items:center">🏅</span></button>
-      <div class="card goal"><div class="gt"><b>Today's goal</b><b>${Math.min(dc,3)} / 3</b></div><div class="bar"><i style="width:${Math.min(100,dc/3*100)}%"></i></div><span class="chest">${ICON.chest}</span></div>
     </div></div></div>`;
   SCR.gym=()=>go('gym'); SCR.map=()=>go('map'); SCR.bubble=()=>go('bubble'); SCR.dash=()=>go('dash'); SCR.dig=()=>go('dig');
   SCR.studio=()=>go('studio'); SCR.pets=()=>go('pets'); SCR.badges=()=>go('badges'); SCR.stickers=()=>go('stickers');
   SCR.petme = b => { petHearts(b); };
+  SCR.chest = () => openChest();
+  SCR.step = () => goStep(nextStep());
   if(P.daily.gift !== today){
     P.daily.gift = today; save();
     setTimeout(()=>{ if(currentScreen!=='home') return; sfx('win'); openModal(`<div style="width:120px">${ICON.chest}</div><h2>Daily gift!</h2><p>Welcome back, ${esc(P.name)}. Here are 10 coins.</p>${showStreak()?`<p>${ICON.flame.replace('<svg','<svg width="26" height="26" style="vertical-align:middle"')} ${showStreak()} day streak. Play today to keep it going!</p>`:''}<div class="acts"><button class="btn big sun" data-m="ok" data-default>Yay!</button></div>`, {ok:()=>{ closeModal(); addCoins(10); }}); say('Daily gift! 10 coins'); }, 350);
   }
 };
+
+function goalCard(dc, today){
+  const done = dc >= 3, opened = P.daily.opened === today;
+  const msg = opened ? 'Chest opened! A new one comes tomorrow.' : done ? 'You did it! Tap the chest to open it.' : `Finish ${3-dc} more lesson${3-dc===1?'':'s'} or game${3-dc===1?'':'s'} to open the chest.`;
+  return `<div class="card goal${done&&!opened?' ready':''}"><div class="gt"><b>Today's goal</b><b>${Math.min(dc,3)} / 3</b></div><div class="bar"><i style="width:${Math.min(100,dc/3*100)}%"></i></div><p class="gmsg">${msg}</p>
+    <button class="chest${done&&!opened?' ready':''}${!done?' shut':''}" data-act="chest" aria-label="Treasure chest">${opened?ICON.chestOpen:ICON.chest}${done&&!opened?'<span class="open-tag">Open!</span>':''}</button></div>`;
+}
+function openChest(){
+  const today = dayStr(), dc = P.daily.day===today ? P.daily.count : 0;
+  if(P.daily.opened === today){ sfx('pet'); toast('You opened today\'s chest. Come back tomorrow for a new one!'); return; }
+  if(dc < 3){ sfx('miss'); toast(`Finish ${3-dc} more to open the chest!`); say(`Finish ${3-dc} more to open the chest!`); return; }
+  P.daily.opened = today;
+  const pool = STICKERS.map((s,i)=>i).filter(i=>!STICKERS[i][2]); const fresh = pool.filter(i=>!P.stickers[i]);
+  const si = rnd(fresh.length ? fresh : pool); P.stickers[si] = (P.stickers[si]||0) + 1;
+  addCoins(25); saveNow(); sfx('win'); confetti();
+  openModal(`<div class="chest-pop">${ICON.chestOpen}</div><h2>Treasure!</h2><p style="font-size:48px;margin:0">${STICKERS[si][0]} ${ICON.coin.replace('<svg','<svg width="44" height="44" style="vertical-align:middle"')}</p><p>You got 25 coins and a <b>${esc(STICKERS[si][1])}</b> sticker!</p>${savedNote()}<div class="acts"><button class="btn big sun" data-m="ok" data-default>Yay!</button></div>`, { ok: ()=>{ closeModal(); go('home'); } });
+  say('Treasure! 25 coins and a '+STICKERS[si][1]+' sticker!');
+}
 
 /* ---- lesson map ---- */
 SCREENS.map = () => {
@@ -1289,6 +1461,7 @@ SCREENS.lesson = idx => {
     const bonus = Math.max(0, stars - prev.stars)*10;
     const eyesBonus = eyes ? 10 : 0;
     const coins = 10 + stars*5 + bonus + eyesBonus;
+    if(L.keys && (firstTime || (P.path && P.path.lesson===idx))) { if(firstTime || !P.path) P.path = {lesson:idx, m:0, plays:0}; }
     P.lessons[idx] = {stars:Math.max(stars,prev.stars), bestWpm:Math.max(wpm,prev.bestWpm||0), bestAcc:Math.max(acc,prev.bestAcc||0), plays:(prev.plays||0)+1};
     P.stats.keys += S.keys; P.stats.correct += S.firstOK; if(firstTime) P.stats.lessonsDone++;
     P.stats.bestWpm = Math.max(P.stats.bestWpm, wpm); P.stats.recentWpm = [...P.stats.recentWpm, wpm].slice(-10);
@@ -1308,8 +1481,11 @@ SCREENS.lesson = idx => {
       ${firstTime && hasNext ? `<p>New lesson unlocked: <b>${esc(LESSONS[idx+1].title)}</b></p>`:''}
       ${goalMsg?`<p><b>${goalMsg}</b></p>`:''}
       ${stars<3?'<p class="note">Get 97% right for 3 stars.</p>':''}
-      <div class="acts"><button class="btn" data-m="map">Map</button><button class="btn" data-m="again">Try again</button>${hasNext?'<button class="btn big grass" data-m="next" data-default>Next lesson</button>':'<button class="btn big grass" data-m="home" data-default>Home</button>'}</div>`, {
-      map:()=>go('map'), again:()=>go('lesson', idx), next:()=>go('lesson', idx+1), home:()=>go('home')
+      ${practicing() && P.path.lesson===idx ? `<div class="pathnote"><p>Now practice ${keyChipsHTML(focusKeys())} in a game until you master them!</p>${meterHTML(P.path.m)}</div>` : ''}
+      ${savedNote()}<div class="acts">${practicing() && P.path.lesson===idx
+        ? `<button class="btn" data-m="again">Try again</button><button class="btn" data-m="next">Skip to next lesson</button><button class="btn big grass" data-m="step" data-default>${esc(stepLabel(nextStep()))}</button>`
+        : `<button class="btn" data-m="map">Map</button><button class="btn" data-m="again">Try again</button>${hasNext?'<button class="btn big grass" data-m="next" data-default>Next lesson</button>':'<button class="btn big grass" data-m="home" data-default>Home</button>'}`}</div>`, {
+      map:()=>go('map'), again:()=>go('lesson', idx), next:()=>go('lesson', idx+1), home:()=>go('home'), step:()=>goStep(nextStep())
     });
     setTimeout(()=>badgeToasts(badges), 900);
   };
@@ -1437,7 +1613,7 @@ SCREENS.handshome = idx => {
       openModal(`<h2>Hands home!</h2><div class="bigstars">${[1,2,3].map(n=>ICON.star.replace('<svg',`<svg style="animation-delay:${n*.25}s"`)).join('')}</div>
         <div class="hands big">${handsSVG(null,{color:true})}</div>
         <p>Pointer fingers on <b>F</b> and <b>J</b>. Thumbs on space. Reach, then come back home!</p><p><b>+${coins} coins</b></p>${goalMsg?`<p><b>${goalMsg}</b></p>`:''}
-        <div class="acts"><button class="btn" data-m="map">Map</button><button class="btn big grass" data-m="next" data-default>Next lesson</button></div>`,
+        ${savedNote()}<div class="acts"><button class="btn" data-m="map">Map</button><button class="btn big grass" data-m="next" data-default>Next lesson</button></div>`,
         {map:()=>go('map'), next:()=>go('lesson', idx+1)});
       setTimeout(()=>badgeToasts(badges), 900);
     }catch(e){ /* left the screen */ }
@@ -1509,7 +1685,7 @@ SCREENS.drill = f => {
     say(stars===3 ? 'Strong finger! Three stars!' : 'Good work! Your finger is getting stronger.');
     openModal(`<h2>${stars===3?'Strong finger!':'Good work!'}</h2><div class="bigstars">${[1,2,3].map(n=>(n<=stars?ICON.star:ICON.starOff)).join('')}</div>
       <div class="stats"><div class="stat"><b>${Math.round(acc*100)}%</b><span>right on first try</span></div><div class="stat"><b>+${coins}</b><span>coins</span></div></div>${goalMsg?`<p><b>${goalMsg}</b></p>`:''}
-      <div class="acts"><button class="btn" data-m="again">Again</button><button class="btn big grass" data-m="gym" data-default>Finger Gym</button></div>`, {again:()=>go('drill', f), gym:()=>go('gym')});
+      ${savedNote()}<div class="acts"><button class="btn" data-m="again">Again</button><button class="btn big grass" data-m="gym" data-default>Finger Gym</button></div>`, {again:()=>go('drill', f), gym:()=>go('gym')});
     setTimeout(()=>badgeToasts(badges), 900);
   };
   startLine(); keyHandler = k=>typer.key(k);
@@ -1554,7 +1730,7 @@ SCREENS.quiz = () => {
     say(score===10 ? 'Ten out of ten! You are a finger expert!' : `You got ${score} out of 10!`);
     openModal(`<h2>${score===10?'Finger expert!':score>=7?'Great job!':'Nice try!'}</h2><div class="stats"><div class="stat"><b>${score}/10</b><span>right</span></div><div class="stat"><b>+${coins}</b><span>coins</span></div></div>
       <p class="note">Tip: the colour under each key matches the finger that presses it.</p>${goalMsg?`<p><b>${goalMsg}</b></p>`:''}
-      <div class="acts"><button class="btn" data-m="again">Play again</button><button class="btn big grass" data-m="gym" data-default>Finger Gym</button></div>`, {again:()=>go('quiz'), gym:()=>go('gym')});
+      ${savedNote()}<div class="acts"><button class="btn" data-m="again">Play again</button><button class="btn big grass" data-m="gym" data-default>Finger Gym</button></div>`, {again:()=>go('quiz'), gym:()=>go('gym')});
     setTimeout(()=>badgeToasts(badges), 900);
   };
   ask();
@@ -1590,10 +1766,11 @@ function playBubble(sp){
     P.games.bubble.plays++; P.games.bubble.best = Math.max(P.games.bubble.best, popped);
     addCoins(coins); const goal = recordActivity(Date.now()-start); const bd = checkBadges({bubble: popped===total});
     sfx('win'); if(stars===3) confetti();
+    const pr = practiceResult(total ? popped/total : 1);
     openModal(`<h2>${popped===total?'Every bubble!':'Pop-tastic!'}</h2><div class="bigstars">${[1,2,3].map(n=>(n<=stars?ICON.star:ICON.starOff).replace('<svg',`<svg style="animation-delay:${n*.25}s"`)).join('')}</div>
       <div class="stats"><div class="stat"><b>${popped}/${total}</b><span>popped</span></div><div class="stat"><b>${bestCombo}</b><span>best combo</span></div><div class="stat"><b>+${coins}</b><span>coins</span></div></div>
-      ${goal?`<p><b>${goal}</b></p>`:''}<div class="acts"><button class="btn" data-m="home">Home</button><button class="btn big grass" data-m="again" data-default>Play again</button></div>`,
-      {home:()=>go('home'), again:()=>go('bubble')});
+      ${pr.note}${goal?`<p><b>${goal}</b></p>`:''}${savedNote()}${gameActs(pr, 'bubble', 'Play again', '<button class="btn" data-m="home">Home</button>')}`,
+      {home:()=>go('home'), again:()=>go('bubble'), step:()=>goStep(pr.after)});
     say(popped===total?'Wow, every bubble!':'Pop-tastic!');
     setTimeout(()=>badgeToasts(bd), 900);
   };
@@ -1677,11 +1854,12 @@ SCREENS.dash = () => {
     addCoins(coins); const goal = recordActivity(Date.now()-started); const bd = checkBadges();
     sfx('win'); if(win) confetti();
     say(win ? `${pet.name} wins!` : 'Shelly won this time. Try again!');
+    const pr = practiceResult(acc);
     openModal(`<h2>${win?`${esc(pet.name)} wins!`:'So close!'}</h2><div style="width:140px">${petSVG(pet)}</div>
       <p>${win?'You beat Shelly the snail!':'Shelly got there first this time. Rematch?'}</p>
       <div class="stats"><div class="stat"><b>${Math.round(acc*100)}%</b><span>right on first try</span></div><div class="stat"><b>+${coins}</b><span>coins</span></div></div>
-      ${goal?`<p><b>${goal}</b></p>`:''}<div class="acts"><button class="btn" data-m="home">Home</button><button class="btn big grass" data-m="again" data-default>Race again</button></div>`,
-      {home:()=>go('home'), again:()=>go('dash')});
+      ${pr.note}${goal?`<p><b>${goal}</b></p>`:''}${savedNote()}${gameActs(pr, 'dash', 'Race again', '<button class="btn" data-m="home">Home</button>')}`,
+      {home:()=>go('home'), again:()=>go('dash'), step:()=>goStep(pr.after)});
     setTimeout(()=>badgeToasts(bd), 900);
   };
   nextWord(); keyHandler = k=>typer.key(k);
@@ -1721,10 +1899,11 @@ SCREENS.dig = () => {
     keyHandler=null; P.games.dig.plays++; P.stats.keys+=keys; P.stats.correct+=firstOK;
     addCoins(coins+5); const goal = recordActivity(Date.now()-start); const bd = checkBadges();
     sfx('win'); confetti();
+    const pr = practiceResult(keys ? firstOK/keys : 1);
     openModal(`<h2>Treasure!</h2><p style="font-size:44px">${found.map(i=>STICKERS[i][0]).join(' ')||'🪙'}</p>
       <div class="stats"><div class="stat"><b>${found.length}</b><span>stickers</span></div><div class="stat"><b>+${coins+5}</b><span>coins</span></div></div>
-      ${goal?`<p><b>${goal}</b></p>`:''}<div class="acts"><button class="btn" data-m="book">Sticker book</button><button class="btn big grass" data-m="again" data-default>Dig again</button></div>`,
-      {book:()=>go('stickers'), again:()=>go('dig')});
+      ${pr.note}${goal?`<p><b>${goal}</b></p>`:''}${savedNote()}${gameActs(pr, 'dig', 'Dig again', '<button class="btn" data-m="book">Sticker book</button>')}`,
+      {book:()=>go('stickers'), again:()=>go('dig'), step:()=>goStep(pr.after)});
     setTimeout(()=>badgeToasts(bd), 900);
   };
   nextWord(); keyHandler = k=>typer.key(k);
@@ -1852,6 +2031,11 @@ SCREENS.grown = () => {
         const t = p.tech||{};
         return `<tr><td><b>${esc(p.name)}</b></td>${FINGER_ORDER.map(pc).join('')}${pc('th')}<td>${tk}</td><td style="min-width:220px">Hands Home ${p.lessons&&p.lessons[0]&&p.lessons[0].stars?'done':'not yet'}, quiz best ${t.quizBest||0}/10, ${t.gymDone||0} drills, ${t.eyesUpLessons||0} Eyes Up lessons</td></tr>`; }).join('')}</tbody></table></div>`:''}
       <p class="note">Right on the first try, per finger, across lessons and games. A dash means fewer than 15 keys so far. Red means under 85%. The Finger Gym tile points your child to the weakest finger.</p></div>
+    <div class="card sec"><h2>Voice</h2>
+      <div class="vrow"><button class="btn" id="gvbtn" data-act="gvoice">Read aloud</button><span class="note">for every player on this Chromebook</span></div>
+      <div class="vrow"><label for="gvsel"><b>Voice</b></label><select id="gvsel"></select><button class="btn wave" data-act="gvtest">Test</button></div>
+      <div class="vrow"><b>Speed</b>${[[.85,'Slower'],[1,'Normal'],[1.12,'Faster']].map(([r,n])=>`<button class="btn small ${(DB.voiceRate||1)===r?'sun':''}" data-act="grate" data-r="${r}">${n}</button>`).join('')}</div>
+      <p class="note">Voices come from this Chromebook, not the game. The ones marked Natural or Google sound most like a real person, and Google voices need the internet. "Best available" picks one for you.</p></div>
     <div class="card sec"><h2>Saving</h2>
       <p>Progress saves automatically in this browser, on this device. ${storageOK?'Saving is working.':'<b style="color:var(--berry-d)">This browser is blocking saving right now.</b>'} <span id="persist"></span></p>
       <p class="note">Clearing browsing data, a guest or incognito window, or a different Chromebook will not have this progress. Make a backup code now and then, and paste it below to bring a player back.</p>
@@ -1861,13 +2045,13 @@ SCREENS.grown = () => {
     </div>
   </div></div>`;
   try{ navigator.storage && navigator.storage.persisted && navigator.storage.persisted().then(v=>{ const el=$('#persist'); if(el) el.textContent = v ? 'Chrome has marked this storage as protected.' : ''; }); }catch(e){}
-  const showCode = (title, players) => {
-    const code = encodeCode(players);
-    openModal(`<h2>${esc(title)}</h2><p class="note">Copy this and keep it somewhere safe, like a note or an email to yourself.</p><textarea id="codeOut" readonly style="width:100%;min-height:140px;font-family:ui-monospace,monospace;font-size:12px;border:3px solid var(--line);border-radius:14px;padding:8px;box-sizing:border-box">${esc(code)}</textarea><div class="acts"><button class="btn wave" data-m="copy">Copy</button><button class="btn" data-m="close" data-default>Close</button></div><span id="cmsg" class="note"></span>`, {
-      copy: ()=>{ const ta=$('#codeOut'); const done=()=>$('#cmsg').textContent='Copied!'; try{ navigator.clipboard.writeText(code).then(done, ()=>{ ta.select(); $('#cmsg').textContent='Press Ctrl+C to copy.'; }); }catch(e){ ta.select(); $('#cmsg').textContent='Press Ctrl+C to copy.'; } },
-      close: closeModal
-    });
-  };
+  fillVoices();
+  const allVoice = list.length ? list.every(p=>p.settings.voice) : true;
+  SCR.gvoice = () => { const on = !allVoice; list.forEach(p=>p.settings.voice = on); saveNow(); go('grown'); if(on) speak('Read aloud is on.'); };
+  SCR.gvtest = () => speak(rnd(['Great job! Three stars!','Your turn! Press F.','Nice to meet you! Pick a pet friend.','Watch your pointer finger reach, then come back home.']));
+  SCR.grate = b => { DB.voiceRate = +b.dataset.r; saveNow(); go('grown'); speak('This is how fast I talk.'); };
+  $('#gvsel').addEventListener('change', e=>{ DB.voiceName = e.target.value || null; loadVoices(); saveNow(); speak('Hi! This is my voice.'); });
+  $('#gvbtn').textContent = 'Read aloud: ' + (allVoice?'On':'Off'); $('#gvbtn').classList.toggle('grass', allVoice);
   SCR.gback = () => { P = prevP && DB.players[prevP.id] ? DB.players[prevP.id] : null; go(P?'home':'profiles'); };
   SCR.gcode = b => showCode('Backup code for '+DB.players[b.dataset.id].name, [DB.players[b.dataset.id]]);
   SCR.gall = () => showCode('Backup code for everyone', list);
@@ -1889,8 +2073,17 @@ SCREENS.grown = () => {
   };
 };
 
+function fillVoices(){
+  const sel = document.getElementById('gvsel'); if(!sel) return;
+  const label = v => v.name.replace(/^Microsoft /,'') + (v.localService ? '' : ' (online)');
+  sel.innerHTML = `<option value="">Best available${VOICES[0]?' ('+esc(VOICES[0].name)+')':''}</option>` + VOICES.map(v=>`<option value="${esc(v.name)}"${DB.voiceName===v.name?' selected':''}>${esc(label(v))}</option>`).join('');
+  if(!VOICES.length) sel.innerHTML = '<option value="">No voices found on this device</option>';
+}
+
 /* ---------- boot ---------- */
 loadDB();
+loadVoices();
+askPersist();
 if(DB.last && DB.players[DB.last] && DB.order.length===1){ P = DB.players[DB.last]; go('home'); }
 else go('profiles');
 </script></body></html>
