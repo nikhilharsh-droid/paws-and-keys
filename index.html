@@ -355,6 +355,8 @@ h1,h2,h3{font-family:var(--display);margin:0;line-height:1.05;text-wrap:balance}
 /* saving */
 .savebtn{display:inline-flex;align-items:center;gap:6px;min-height:46px;padding:4px 14px 4px 8px;border-radius:999px;font-family:var(--display);font-weight:800;font-size:18px;background:#E3F7EA}
 .savebtn .ck,.savedline .ck,.savedsub .ck{display:inline-grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--grass);color:#fff;font-size:16px;font-weight:900}
+.savebtn .ck.sync{background:var(--wave);animation:spin 1s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
 .savebtn.bad{background:#FFE1E8;color:var(--berry-d)} .savebtn.bad .ck{background:var(--berry)}
 .savebtn.flash{animation:savepop .9s}
 @keyframes savepop{0%{transform:scale(1)}25%{transform:scale(1.15);box-shadow:0 0 0 6px rgba(63,191,115,.35)}100%{transform:scale(1)}}
@@ -811,16 +813,105 @@ function loadDB(){
 }
 let saveT = null;
 function save(){ if(P) P.updated = Date.now(); clearTimeout(saveT); saveT = setTimeout(saveNow, 250); }
-function saveNow(){ clearTimeout(saveT); try{ localStorage.setItem(STORE_KEY, JSON.stringify(DB)); storageOK = !!localStorage.getItem(STORE_KEY); }catch(e){ storageOK = false; } flashSaved(); return storageOK; }
-function saveBtnHTML(){ return storageOK ? `<span class="ck">✓</span><span>Saved</span>` : `<span class="ck">!</span><span>Not saving</span>`; }
+function localWrite(){ DB.synced = pushedAt; try{ localStorage.setItem(STORE_KEY, JSON.stringify(DB)); storageOK = !!localStorage.getItem(STORE_KEY); }catch(e){ storageOK = false; } }
+function saveNow(){ clearTimeout(saveT); localWrite(); markDirty(); flashSaved(); return storageOK; }
+
+/* ---------- Google Drive sync, through the family's own save script ---------- */
+const CLOUD_URL = '';
+let cloudState = 'off';                 // off | syncing | ok | offline
+let cloudT = null, cloudBusy = false;
+const cloudDirty = new Set(), pushedAt = {};
+const cloudOn = () => !!CLOUD_URL;
+const busyScreen = () => P && !['home','profiles','grown'].includes(currentScreen);
+function setCloud(s){ cloudState = s; const el = document.getElementById('cloudline'); if(el) el.innerHTML = cloudLine(); flashSaved(true); }
+function cloudLine(){
+  if(!cloudOn()) return '';
+  return cloudState==='offline' ? 'Saved on this computer. It will copy to Google Drive when the internet is back.'
+    : cloudState==='syncing' ? 'Checking Google Drive for players...' : 'Progress saves to Google Drive, so it works on any computer.';
+}
+function markDirty(){
+  if(!cloudOn()) return;
+  for(const id of DB.order){ const p = DB.players[id]; if(p && (p.updated||0) !== pushedAt[id]) cloudDirty.add(id); }
+  if(cloudDirty.size) cloudPushSoon();
+}
+function cleanCloudPlayer(p){
+  if(!p || typeof p!=='object' || typeof p.id!=='string' || !/^p[a-z0-9]{4,40}$/.test(p.id) || typeof p.name!=='string' || !p.name) return null;
+  if(typeof p.lessons!=='object' || !p.lessons || typeof p.avatar!=='object' || !p.avatar) return null;
+  p.name = p.name.slice(0,40);
+  if(typeof p.coins!=='number' || !isFinite(p.coins)) p.coins = 0;
+  if(typeof p.updated!=='number' || !isFinite(p.updated)) p.updated = 0;
+  if(!Array.isArray(p.pets)) p.pets = [];
+  if(!Array.isArray(p.owned)) p.owned = [];
+  try{ return fixPlayer(p); }catch(e){ return null; }
+}
+async function cloudPull(){
+  if(!cloudOn() || cloudBusy) return;
+  cloudBusy = true; setCloud('syncing');
+  try{
+    const r = await fetch(CLOUD_URL, {cache:'no-store', redirect:'follow'});
+    const d = await r.json();
+    if(!d || !d.ok || !Array.isArray(d.players)) throw new Error('bad reply');
+    let changed = false; const seen = new Set();
+    for(const raw of d.players){
+      const cp = cleanCloudPlayer(raw); if(!cp) continue;
+      seen.add(cp.id); const lp = DB.players[cp.id];
+      if(!lp){ DB.players[cp.id] = cp; DB.order.push(cp.id); pushedAt[cp.id] = cp.updated; changed = true; }
+      else if(cp.updated > (lp.updated||0)){
+        if(P && P.id===cp.id && busyScreen()) continue;      // in the middle of playing: this computer wins
+        DB.players[cp.id] = cp; if(P && P.id===cp.id) P = cp; pushedAt[cp.id] = cp.updated; changed = true;
+      } else if(cp.updated === (lp.updated||0)) pushedAt[cp.id] = cp.updated;
+    }
+    // a player that was saved to Drive before and is gone from it now was deleted on another computer;
+    // an empty sheet means a fresh start, so this computer's players are copied up again instead
+    for(const id of [...DB.order]){
+      if(seen.has(id)) continue;
+      const lp = DB.players[id];
+      if(d.players.length && pushedAt[id]!==undefined && lp && (lp.updated||0)===pushedAt[id] && !(P && P.id===id)){
+        delete DB.players[id]; DB.order = DB.order.filter(x=>x!==id); delete pushedAt[id]; cloudDirty.delete(id); changed = true;
+      } else delete pushedAt[id];
+    }
+    if(changed){ localWrite(); if(!MODAL && (currentScreen==='profiles' || currentScreen==='home')) go(P ? 'home' : 'profiles'); }
+    cloudBusy = false; setCloud('ok'); markDirty();
+  }catch(e){ cloudBusy = false; setCloud('offline'); }
+}
+function cloudPushSoon(ms=2000){ if(!cloudOn()) return; clearTimeout(cloudT); cloudT = setTimeout(cloudPush, ms); }
+async function cloudPush(){
+  if(!cloudOn()) return;
+  if(cloudBusy){ cloudPushSoon(1500); return; }
+  const ids = [...cloudDirty]; if(!ids.length) return;
+  cloudBusy = true; setCloud('syncing'); let failed = false;
+  for(const id of ids){
+    const p = DB.players[id]; if(!p){ cloudDirty.delete(id); continue; }
+    const sent = p.updated||0;
+    try{
+      const r = await fetch(CLOUD_URL, {method:'POST', redirect:'follow', headers:{'Content-Type':'text/plain;charset=utf-8'}, body: JSON.stringify({app:'pawsandkeys', action:'save', player:p})});
+      const d = await r.json();
+      if(d && d.ok){ pushedAt[id] = sent; if((p.updated||0)===sent) cloudDirty.delete(id); }
+      else if(d && d.stale){
+        const cp = cleanCloudPlayer(d.player);
+        if(cp && !(P && P.id===id && busyScreen())){ DB.players[id] = cp; if(P && P.id===id) P = cp; pushedAt[id] = cp.updated; localWrite(); }
+        cloudDirty.delete(id);
+      } else { cloudDirty.delete(id); failed = true; }
+    }catch(e){ failed = true; }
+  }
+  cloudBusy = false; setCloud(failed ? 'offline' : 'ok');
+  if(failed) cloudPushSoon(30000); else if(cloudDirty.size) cloudPushSoon(500);
+}
+async function cloudDelete(id){
+  if(!cloudOn()) return;
+  try{ await fetch(CLOUD_URL, {method:'POST', redirect:'follow', headers:{'Content-Type':'text/plain;charset=utf-8'}, body: JSON.stringify({app:'pawsandkeys', action:'delete', id})}); }catch(e){}
+}
+document.addEventListener('visibilitychange', ()=>{ if(!document.hidden && cloudOn() && !busyScreen() && !MODAL) cloudPull(); });
+function saveBtnHTML(){ if(!storageOK && cloudState!=='ok') return `<span class="ck">!</span><span>Not saving</span>`; return cloudState==='syncing' ? `<span class="ck sync">↻</span><span>Saving</span>` : `<span class="ck">✓</span><span>Saved</span>`; }
 let flashT = null;
-function flashSaved(){
+function flashSaved(quiet){
   const b = document.getElementById('saveBtn'); if(!b) return;
-  b.innerHTML = saveBtnHTML(); b.classList.toggle('bad', !storageOK);
+  b.innerHTML = saveBtnHTML(); b.classList.toggle('bad', !storageOK && cloudState!=='ok');
+  if(quiet) return;
   b.classList.remove('flash'); void b.offsetWidth; b.classList.add('flash');
   clearTimeout(flashT); flashT = setTimeout(()=>b.classList.remove('flash'), 1200);
 }
-function savedNote(){ saveNow(); return storageOK ? `<p class="savedline"><span class="ck">✓</span> Saved on this Chromebook</p>` : `<p class="savedline bad">This browser is not saving. Ask a grown-up.</p>`; }
+function savedNote(){ saveNow(); return storageOK ? `<p class="savedline"><span class="ck">✓</span> ${cloudOn() ? 'Saved to Google Drive' : 'Saved on this Chromebook'}</p>` : `<p class="savedline bad">This browser is not saving. Ask a grown-up.</p>`; }
 function askPersist(){ try{ navigator.storage && navigator.storage.persist && navigator.storage.persist(); }catch(e){} }
 window.addEventListener('pagehide', saveNow);
 document.addEventListener('visibilitychange', ()=>{ if(document.hidden) saveNow(); });
@@ -1122,8 +1213,8 @@ function openSaved(){
   const ok = saveNow();
   if(ok) sfx('coin');
   openModal(ok ? `<div style="font-size:64px;line-height:1">✅</div><h2>Saved!</h2>
-    <p>${esc(P.name)}'s coins, pets, looks and lessons are saved on this Chromebook.</p>
-    <p class="note">The game saves by itself every time you play, so you never have to press Save. Just come back to the same link.</p>
+    <p>${esc(P.name)}'s coins, pets, looks and lessons are saved ${cloudOn() ? 'to your family\'s Google Drive, so they show up on any computer' : 'on this Chromebook'}.</p>
+    <p class="note">The game saves by itself every time you play, so you never have to press Save. Just come back to the same link.${cloudOn() && cloudState==='offline' ? ' Right now Google Drive can\'t be reached, so it will copy there when the internet is back.' : ''}</p>
     <div class="acts"><button class="btn" data-m="code">Backup code</button><button class="btn big grass" data-m="ok" data-default>Yay!</button></div>`
    : `<h2>Not saving</h2><p>This browser is blocking saving, so progress will be lost when the page closes. This happens in a guest or incognito window. Ask a grown-up to open the game in a normal Chrome window.</p>
     <div class="acts"><button class="btn" data-m="code">Backup code</button><button class="btn big" data-m="ok" data-default>OK</button></div>`, {
@@ -1283,7 +1374,7 @@ SCREENS.profiles = () => {
         return `<button class="card pcard" data-act="pick" data-id="${p.id}"><div class="pic" style="background:${find(BG,p.avatar.bg).css}">${avatarSVG(p.avatar)}${pet?petSVG(pet):''}</div><div class="nm">${esc(p.name)}</div><span class="chip">${ICON.coin}${p.coins}</span></button>`; }).join('')}
       <button class="card pcard add" data-act="new"><div class="plus">+</div><div class="nm">New player</div></button>
     </div>
-    ${list.length && storageOK?'<p class="sub savedsub"><span class="ck">✓</span> Progress saves by itself on this Chromebook</p>':''}
+    ${cloudOn() ? `<p class="sub savedsub" id="cloudline">${cloudLine()}</p>` : (list.length && storageOK?'<p class="sub savedsub"><span class="ck">✓</span> Progress saves by itself on this Chromebook</p>':'')}
     <div class="footlinks"><button class="btn small" data-act="grown">Grown-ups</button></div>
     ${storageOK?'':'<p class="sub" style="color:var(--berry-d)">This browser is blocking saving. Progress will be lost when the page closes.</p>'}
   </div>`;
@@ -2037,7 +2128,7 @@ SCREENS.grown = () => {
       <div class="vrow"><b>Speed</b>${[[.85,'Slower'],[1,'Normal'],[1.12,'Faster']].map(([r,n])=>`<button class="btn small ${(DB.voiceRate||1)===r?'sun':''}" data-act="grate" data-r="${r}">${n}</button>`).join('')}</div>
       <p class="note">Voices come from this Chromebook, not the game. The ones marked Natural or Google sound most like a real person, and Google voices need the internet. "Best available" picks one for you.</p></div>
     <div class="card sec"><h2>Saving</h2>
-      <p>Progress saves automatically in this browser, on this device. ${storageOK?'Saving is working.':'<b style="color:var(--berry-d)">This browser is blocking saving right now.</b>'} <span id="persist"></span></p>
+      <p>${cloudOn() ? 'Progress saves to your Google Drive (the "Paws & Keys saves" sheet) and to this browser, so each player can play on any computer.' : 'Progress saves automatically in this browser, on this device.'} ${storageOK?'Saving is working.':'<b style="color:var(--berry-d)">This browser is blocking saving right now.</b>'} <span id="persist"></span></p>
       <p class="note">Clearing browsing data, a guest or incognito window, or a different Chromebook will not have this progress. Make a backup code now and then, and paste it below to bring a player back.</p>
       <div class="acts" style="display:flex;gap:10px;flex-wrap:wrap"><button class="btn wave" data-act="gall">Backup code for everyone</button></div>
       <textarea id="gin" placeholder="Paste a backup code here"></textarea>
@@ -2055,11 +2146,11 @@ SCREENS.grown = () => {
   SCR.gback = () => { P = prevP && DB.players[prevP.id] ? DB.players[prevP.id] : null; go(P?'home':'profiles'); };
   SCR.gcode = b => showCode('Backup code for '+DB.players[b.dataset.id].name, [DB.players[b.dataset.id]]);
   SCR.gall = () => showCode('Backup code for everyone', list);
-  SCR.gcoins = b => { DB.players[b.dataset.id].coins += 50; saveNow(); go('grown'); };
+  SCR.gcoins = b => { const p = DB.players[b.dataset.id]; p.coins += 50; p.updated = Date.now(); saveNow(); go('grown'); };
   SCR.gdel = b => {
     const p = DB.players[b.dataset.id];
     openModal(`<h2>Delete ${esc(p.name)}?</h2><p>This removes all of ${esc(p.name)}'s progress from this browser. Make a backup code first if you might want it back.</p><div class="acts"><button class="btn" data-m="no" data-default>Keep</button><button class="btn berry" data-m="yes">Delete</button></div>`, {
-      no: closeModal, yes: ()=>{ delete DB.players[p.id]; DB.order = DB.order.filter(x=>x!==p.id); if(prevP && prevP.id===p.id) { P=null; } saveNow(); go('grown'); }
+      no: closeModal, yes: ()=>{ delete DB.players[p.id]; DB.order = DB.order.filter(x=>x!==p.id); cloudDirty.delete(p.id); delete pushedAt[p.id]; cloudDelete(p.id); if(prevP && prevP.id===p.id) { P=null; } saveNow(); go('grown'); }
     });
   };
   SCR.grestore = () => {
@@ -2067,7 +2158,7 @@ SCREENS.grown = () => {
     try{
       const players = decodeCode($('#gin').value);
       let added=0, replaced=0;
-      for(const raw of players){ if(!raw || !raw.id || !raw.name) continue; const p = fixPlayer(raw); if(DB.players[p.id]) replaced++; else { DB.order.push(p.id); added++; } DB.players[p.id]=p; }
+      for(const raw of players){ if(!raw || !raw.id || !raw.name) continue; const p = fixPlayer(raw); p.updated = Date.now(); if(DB.players[p.id]) replaced++; else { DB.order.push(p.id); added++; } DB.players[p.id]=p; }
       saveNow(); go('grown'); $('#gmsg').textContent = `Restored ${added+replaced} player${added+replaced===1?'':'s'}.`;
     }catch(e){ msg.textContent = e.message && e.message.startsWith('Th') ? e.message : 'That code could not be read. Check that the whole code was copied.'; }
   };
@@ -2084,6 +2175,9 @@ function fillVoices(){
 loadDB();
 loadVoices();
 askPersist();
+if(DB.synced) for(const id in DB.synced) if(DB.players[id]) pushedAt[id] = DB.synced[id];
+DB.synced = pushedAt;
 if(DB.last && DB.players[DB.last] && DB.order.length===1){ P = DB.players[DB.last]; go('home'); }
 else go('profiles');
+cloudPull();
 </script></body></html>
