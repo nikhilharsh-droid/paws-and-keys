@@ -386,6 +386,113 @@ h1,h2,h3{font-family:var(--display);margin:0;line-height:1.05;text-wrap:balance}
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
 }
+/* ---- Expansion: critters, battles, builder, evolution ---- */
+.roundsbar{grid-column:1/-1;border:3px solid var(--line);border-radius:16px;padding:8px 14px;font-weight:600;font-size:16px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.roundsbar.on{background:#E3F8EA} .roundsbar.off{background:#FFF1C9}
+.roundsbar .kchip{font-size:15px}
+.roundsout{font-weight:700;color:var(--berry-d)}
+.tile.locked{filter:saturate(.45);opacity:.8}
+.lktag{position:absolute;top:10px;right:10px;z-index:2;background:var(--paper);border:2px solid var(--line);border-radius:999px;padding:2px 10px;font-size:13px;font-weight:700}
+.tile.catcht{background:#C9F2B4} .tile.battlet{background:#FFC9B8} .tile.buildt{background:#D8E9FF} .tile.bookt{background:#FFE7A8}
+.tile .blockart{position:absolute;right:6px;bottom:6px;display:grid;grid-template-columns:repeat(3,28px);gap:2px;opacity:.95}
+.blockline{display:flex;align-items:center;justify-content:center;gap:4px;flex-wrap:wrap;font-weight:700}
+.blockline svg,.bi svg{display:block}
+.cr{width:100%;height:auto;display:block}
+.cr.sil{filter:brightness(0) opacity(.28)}
+/* catch */
+.catch-area{background:linear-gradient(#BDF0A8,#79CF6B);transition:background .4s}
+.thrower{position:absolute;left:2%;bottom:-6%;width:min(26%,170px)}
+.wild{position:absolute;right:10%;bottom:10%;width:min(34%,220px);transform-origin:50% 100%}
+.wild.in{animation:wildin .5s ease-out}
+.wild.hug{animation:pop .35s}
+.wild.dodge{animation:dodge .45s}
+.wild.caught{animation:caught .9s forwards}
+.wild.away{animation:away 1s forwards}
+@keyframes wildin{from{transform:translateX(60px) scale(.6);opacity:0}}
+@keyframes dodge{40%{transform:translateX(26px) rotate(8deg)}}
+@keyframes caught{30%{transform:scale(1.15)}100%{transform:scale(.4) translateY(-40px);opacity:0}}
+@keyframes away{to{transform:translateX(120%);opacity:0}}
+.cr-name{position:absolute;right:8%;top:62px;background:var(--paper);border:3px solid var(--line);border-radius:14px;padding:4px 12px;font-family:var(--display);font-weight:800;font-size:22px;display:flex;gap:6px;align-items:center;flex-wrap:wrap;max-width:60%}
+.rare{display:inline-block;border:2px solid var(--line);border-radius:999px;padding:0 8px;font-size:13px;font-weight:700;color:var(--ink);font-family:var(--body)}
+.rare.newc{background:var(--berry);color:#fff}
+.hearts-row{display:inline-flex;gap:2px;font-size:24px;color:#C9CFE2}
+.hearts-row .on{color:var(--berry)}
+.fbub{position:absolute;left:0;top:0;width:44px;height:44px;z-index:3;pointer-events:none}
+.fbub svg{width:100%;height:100%}
+.fbub.pop{animation:popb .3s forwards}
+.mini{width:26px;height:26px;vertical-align:middle}
+.caughtrow{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+.cc{width:118px;display:flex;flex-direction:column;align-items:center;gap:4px;background:var(--paper2);border:3px solid var(--line);border-radius:16px;padding:8px}
+.cc svg{width:88px;height:88px}
+/* book */
+.bookhead{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:10px}
+.booktabs .tab{background:var(--hc,var(--paper))}
+.booktabs .tab.on{background:var(--ink);color:#fff}
+.book-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
+.bk{padding:10px;display:flex;flex-direction:column;align-items:center;gap:4px;text-align:center;position:relative}
+.bk svg{width:100px;height:100px}
+.bk b{font-family:var(--display);font-size:20px}
+.bk small{font-size:13px;color:var(--ink2);line-height:1.3}
+.bk.off{background:var(--paper2)}
+.bk .cnt{position:absolute;top:8px;right:8px;background:var(--paper);border:2px solid var(--line);border-radius:999px;padding:0 8px;font-weight:700;font-size:13px}
+/* battle */
+.arena{background:linear-gradient(#FFE3C4 0 58%,#B9E59A 58%);display:flex;align-items:flex-end;justify-content:space-between;padding:16px 4% 6%;gap:8px}
+.fighter{width:min(34%,230px);display:flex;flex-direction:column;gap:6px;position:relative}
+.fighter.foe{align-self:flex-start;margin-top:8px}
+.hpbox{background:var(--paper);border:3px solid var(--line);border-radius:14px;padding:4px 10px}
+.hpbox b{font-family:var(--display);font-size:18px}
+.hp{height:14px;border:2px solid var(--line);border-radius:999px;background:#E6E9F3;overflow:hidden}
+.hp i{display:block;height:100%;background:var(--grass);transition:width .35s}
+.hp i.low{background:var(--berry)}
+.fart svg{width:100%;height:auto;display:block}
+.fighter.foe .fart{transform:scaleX(-1)}
+.bmsg{align-self:center;flex:1;text-align:center;background:var(--paper);border:3px solid var(--line);border-radius:16px;padding:8px 12px;font-weight:600;font-size:17px;max-width:280px}
+.dmg{position:absolute;top:30%;left:50%;transform:translateX(-50%);font-family:var(--display);font-weight:800;font-size:34px;color:var(--berry-d);-webkit-text-stroke:1px #fff;animation:dmgup 1s forwards;pointer-events:none;z-index:3}
+.dmg.fast{color:var(--sun-d);font-size:40px}
+.dmg.miss{color:var(--ink2)}
+@keyframes dmgup{to{transform:translate(-50%,-60px);opacity:0}}
+.fighter.lunge .fart{animation:lunge .4s}
+.fighter.lunge-r .fart{animation:lunger .4s}
+.fighter.hurt .fart{animation:shake .35s,hurtflash .35s}
+.fighter.whiff .fart{animation:whiff .45s}
+.fighter.beaten .fart{animation:beaten .8s forwards}
+@keyframes lunge{40%{transform:translateX(40px)}}
+@keyframes lunger{40%{transform:scaleX(-1) translateX(40px)}}
+@keyframes whiff{30%{transform:translateX(20px) rotate(-6deg)}60%{transform:translateX(-6px)}}
+@keyframes hurtflash{50%{filter:brightness(1.6)}}
+@keyframes beaten{to{transform:translateY(20px) rotate(-12deg);opacity:.35}}
+.pickpartner{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;max-height:46vh;overflow:auto;padding:4px}
+.pp{width:120px;border:3px solid var(--line);border-radius:16px;background:var(--paper2);padding:8px;display:flex;flex-direction:column;align-items:center;gap:2px;box-shadow:0 4px 0 var(--line);font-family:var(--body)}
+.pp:active{transform:translateY(3px);box-shadow:0 1px 0 var(--line)}
+.pp svg{width:84px;height:84px}
+.pp b{font-family:var(--display);font-size:17px}
+.pp small{font-size:12px;color:var(--ink2)}
+/* builder */
+.builder{display:grid;grid-template-columns:1fr minmax(240px,300px);gap:14px;flex:1;min-height:0}
+.worldcard{overflow:hidden;background:linear-gradient(#BFE6FF,#E8F7FF 70%);display:flex;min-height:240px}
+.world{width:100%;height:100%;touch-action:none;cursor:crosshair;background-image:linear-gradient(rgba(34,48,90,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(34,48,90,.06) 1px,transparent 1px);background-size:calc(100%/24) calc(100%/13)}
+.bpanel{padding:12px;display:flex;flex-direction:column;gap:8px;min-height:0;overflow:auto}
+.bhead{font-family:var(--display);font-size:20px}
+.bpal{display:grid;grid-template-columns:repeat(auto-fill,minmax(76px,1fr));gap:8px}
+.bpick{position:relative;border:3px solid var(--line);border-radius:14px;background:var(--paper);padding:6px 4px;display:flex;flex-direction:column;align-items:center;gap:2px;font-family:var(--body)}
+.bpick small{font-size:12px;font-weight:600;line-height:1.1;text-align:center}
+.bpick.on{background:var(--sun);box-shadow:0 0 0 3px var(--sun-d)}
+.bpick.empty{opacity:.5}
+.bi{width:44px;height:44px;display:flex;align-items:center;justify-content:center}
+.bi svg{width:100%;height:100%}
+.bn{position:absolute;top:-8px;right:-6px;background:var(--ink);color:#fff;border-radius:999px;font-size:12px;font-weight:700;padding:1px 7px;min-width:22px}
+.tab.bera.on{background:var(--berry);color:#fff}
+@media (max-width:760px){.builder{grid-template-columns:1fr;grid-template-rows:minmax(220px,1fr) auto}.bpanel{max-height:42vh}}
+/* evolution + pet forms */
+.evo{display:flex;align-items:center;gap:10px;justify-content:center}
+.evo-a,.evo-b{width:130px}
+.evo-a svg,.evo-b svg{width:100%;height:auto;position:static}
+.evo-a{opacity:.7}
+.evo-b{animation:evoin 1.2s ease-out}
+.evo-arrow{font-size:34px}
+@keyframes evoin{0%{transform:scale(.3);filter:brightness(3)}60%{transform:scale(1.15);filter:brightness(1.4)}100%{transform:scale(1)}}
+.forms{display:flex;gap:6px;flex-wrap:wrap}
+@media (prefers-reduced-motion:reduce){.wild,.fighter .fart,.evo-b,.dmg,.fbub{animation:none!important}}
 </style>
 </head><body>
 <div id="app"></div>
@@ -546,7 +653,12 @@ const BADGES = [
   {id:'quiz',e:'🧠',name:'Finger Expert',hint:'Get 10 of 10 in Which Finger?'},
   {id:'gym',e:'💪',name:'Strong Fingers',hint:'Finish 5 finger drills'},
   {id:'eyesup',e:'🙈',name:'No Peeking',hint:'Finish a lesson in Eyes Up mode'},
-  {id:'allfingers',e:'🎖️',name:'All-Star Fingers',hint:'Every finger 90% right (after lots of typing)'}
+  {id:'allfingers',e:'🎖️',name:'All-Star Fingers',hint:'Every finger 90% right (after lots of typing)'},
+  {id:'catch1',e:'💞',name:'New Friend',hint:'Make friends with your first critter'},
+  {id:'catch10',e:'📖',name:'Critter Keeper',hint:'Have 10 critters in your Critter Book'},
+  {id:'battle1',e:'🛡️',name:'Battle Buddy',hint:'Win a Critter Battle'},
+  {id:'builder',e:'🧱',name:'Builder',hint:'Place 30 blocks in your world'},
+  {id:'evolve',e:'✨',name:'Growing Up',hint:'Your pet grows into a new form'}
 ];
 /* ===== Art: avatar, pets, icons (all original inline SVG) ===== */
 let _sid = 0;
@@ -679,7 +791,7 @@ function faceSVG(av){ // head-only crop
 }
 
 /* ---- pets ---- */
-function petSVG(pet, cls='pt'){
+function petSVG(pet, cls='pt', stage){
   const u = ++_sid;
   const kind = find(PETS, pet.kind);
   const pc = find(PETCOL, pet.color||'natural').c;
@@ -729,7 +841,11 @@ function petSVG(pet, cls='pt'){
     if(k==='kitten') face += `<path d="M30,56 L42,57 M30,62 L42,60 M90,56 L78,57 M90,62 L78,60" stroke="#22305A" stroke-width="1.8" stroke-linecap="round"/>`;
   }
   const acc = petAccSVG(pet.acc||'none');
-  return `<svg class="${cls}" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs>${rainbowDef('prb'+u)}</defs>${back}${body}${feet}${ears}${head}${earsFront}${extra}${face}${acc}</svg>`;
+  // pet forms: the pet grows and gains wings, marks and sparkles as lessons are finished
+  const stg = typeof stage==='number' ? stage : (typeof petStage==='function' ? petStage(pet) : 0);
+  const fo = stg>0 && typeof formOverlay==='function' ? formOverlay(stg, u) : {back:'',front:''};
+  const sc = [0.86,0.92,0.97,1,1][Math.max(0,Math.min(4,stg))];
+  return `<svg class="${cls}" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs>${rainbowDef('prb'+u)}</defs>${fo.back}<g transform="translate(${(60*(1-sc)).toFixed(1)} ${(118*(1-sc)).toFixed(1)}) scale(${sc})">${back}${body}${feet}${ears}${head}${earsFront}${extra}${face}${acc}</g>${fo.front}</svg>`;
 }
 function petAccSVG(a){
   const st='stroke="#22305A" stroke-width="2.5" stroke-linejoin="round"';
@@ -783,6 +899,172 @@ function handsSVG(active, opts={}){
   const right = `<svg viewBox="0 0 150 120" aria-hidden="true">${f('thR',33,58,38,-55)}<path d="M130,70 Q128,112 80,114 Q40,112 38,80 L38,64 L130,64 Z" fill="#FFE3CC" stroke="#22305A" stroke-width="3"/>${f('ri',42,14,54,-4)}${f('rm',66,4,64)}${f('rr',90,10,58,3)}${f('rp',114,26,44,8)}<text x="86" y="104" text-anchor="middle" font-family="Baloo 2,sans-serif" font-weight="800" font-size="16" fill="#22305A">RIGHT</text></svg>`;
   return left + right;
 }
+/* ===== Critters, blocks and pet forms: data + art (all original designs) ===== */
+const HABITATS = [
+  {name:'Clover Meadow', col:'#C8F2D2', bg:'radial-gradient(circle at 82% 18%,#FFE27A 0 7%,transparent 7.5%),linear-gradient(#CFF3FF,#EFFBFF 52%,#8ED89A 52%,#62C377)'},
+  {name:'Whisper Woods', col:'#FFE2B8', bg:'radial-gradient(circle at 20% 64%,#3E9B50 0 9%,transparent 9.5%),radial-gradient(circle at 86% 60%,#2F8A45 0 11%,transparent 11.5%),linear-gradient(#FFD8A8,#FFF1DE 50%,#9BCB7A 50%,#6FAE5C)'},
+  {name:'Splash Cove', col:'#BFE8FF', bg:'radial-gradient(circle at 18% 22%,#fff 0 4%,transparent 4.5%),linear-gradient(#A9E4FF,#E7F8FF 46%,#4FB3F0 46%,#2E86DE 76%,#F4D58A 76%)'},
+  {name:'Cloud Peaks', col:'#E3DBFF', bg:'radial-gradient(circle at 25% 30%,#fff 0 9%,transparent 9.5%),radial-gradient(circle at 70% 22%,#fff 0 7%,transparent 7.5%),linear-gradient(#B7A6FF,#E9E3FF 60%,#FFFFFF 60%,#DCD3FF)'}
+];
+// lesson: the lesson that must be finished to meet it (-1 = from the start). rare: 1 common .. 4 legend
+const CRITTERS = [
+  {id:'mossbun',name:'Mossbun',hab:0,lesson:-1,rare:1,fact:'A fuzzy bunny with soft moss for fur. It naps in clover.',a:{shape:'round',c:'#8FCB6B',b:'#E9F7D9',ears:'long',tail:'fluff',feet:1}},
+  {id:'puddlepip',name:'Puddlepip',hab:0,lesson:-1,rare:1,fact:'A wobbly jelly that hops from puddle to puddle.',a:{shape:'blob',c:'#7CC8FF',b:'#D6F0FF',ears:'antenna',mouth:'o'}},
+  {id:'sproutle',name:'Sproutle',hab:0,lesson:0,rare:1,fact:'It grows one new leaf every sunny day.',a:{shape:'pear',c:'#C5E86C',b:'#F4FBD9',ears:'leaf',feet:1}},
+  {id:'honeybuzz',name:'Honeybuzz',hab:0,lesson:1,rare:1,fact:'Hums a happy tune while it looks for flowers.',a:{shape:'round',c:'#FFD23F',b:'#FFF1B8',ears:'antenna',wings:'bug',pat:'stripes',pc:'#7A4F1D'}},
+  {id:'pebblit',name:'Pebblit',hab:0,lesson:2,rare:2,fact:'Rolls down hills just for fun.',a:{shape:'round',c:'#AEB8CC',b:'#E2E7F0',ears:'horns',pat:'spots',pc:'#8792A9',feet:1,eyes:'sleepy'}},
+  {id:'thistlehog',name:'Thistlehog',hab:0,lesson:3,rare:2,fact:'Its spikes are soft as a paintbrush.',a:{shape:'pear',c:'#B48CE8',b:'#EFE4FF',ears:'crest',feet:1,mouth:'w'}},
+  {id:'clovercub',name:'Clovercub',hab:0,lesson:4,rare:2,fact:'A little bear with a lucky clover on its head.',a:{shape:'tall',c:'#C98F5E',b:'#F3DEC7',ears:'round',gem:'#4CC46A',feet:1}},
+  {id:'dandefluff',name:'Dandefluff',hab:0,lesson:5,rare:3,fact:'When it sneezes, it floats away for a minute.',a:{shape:'round',c:'#FFFFFF',b:'#FFF6C9',ears:'pointy',tail:'fluff',feet:1,eyes:'sparkle',fuzz:1}},
+  {id:'sunnyroo',name:'Sunnyroo',hab:0,lesson:6,rare:3,fact:'Bounces so high it can touch the clouds.',a:{shape:'tall',c:'#FFA94D',b:'#FFE3C2',ears:'long',tail:'curl',feet:1}},
+  {id:'twiglet',name:'Twiglet',hab:1,lesson:7,rare:1,fact:'Pretends to be a stick when it feels shy.',a:{shape:'tall',c:'#B07D4F',b:'#E8CFAF',ears:'leaf',feet:1,eyes:'sleepy'}},
+  {id:'glowmoth',name:'Glowmoth',hab:1,lesson:8,rare:2,fact:'Its wings glow softly at bedtime.',a:{shape:'round',c:'#C9B6FF',b:'#F1ECFF',ears:'antenna',wings:'bug',eyes:'sparkle'}},
+  {id:'mapleowl',name:'Mapleowl',hab:1,lesson:9,rare:2,fact:'Knows the name of every tree in the woods.',a:{shape:'round',c:'#F08A3C',b:'#FFE0C2',ears:'crest',wings:'feather',mouth:'beak',feet:1}},
+  {id:'rockroo',name:'Rockroo',hab:1,lesson:10,rare:2,fact:'Hops up mountains two rocks at a time.',a:{shape:'tall',c:'#8FA3C7',b:'#DDE5F3',ears:'round',tail:'spike',feet:1,pat:'spots',pc:'#6F82A8'}},
+  {id:'snowpuff',name:'Snowpuff',hab:1,lesson:10,rare:2,fact:'Makes tiny snowflakes when it giggles.',a:{shape:'round',c:'#EAF6FF',b:'#FFFFFF',ears:'round',feet:1,fuzz:1,cheek:'#9AD0FF'}},
+  {id:'emberkit',name:'Emberkit',hab:1,lesson:11,rare:3,fact:'Its warm tail keeps its friends cozy.',a:{shape:'pear',c:'#FF7A59',b:'#FFE0D4',ears:'pointy',tail:'flame',feet:1,mouth:'w'}},
+  {id:'frostfox',name:'Frostfox',hab:1,lesson:12,rare:3,fact:'Leaves sparkly footprints in the snow.',a:{shape:'pear',c:'#9FD8FF',b:'#EAF7FF',ears:'pointy',tail:'fluff',feet:1,eyes:'sparkle'}},
+  {id:'bubblefin',name:'Bubblefin',hab:2,lesson:13,rare:1,fact:'Blows bubble rings for its friends.',a:{shape:'long',c:'#3FC6C0',b:'#D4F6F3',ears:'fin',tail:'fish',mouth:'o'}},
+  {id:'coralcrab',name:'Coralcrab',hab:2,lesson:14,rare:1,fact:'Waves hello with both claws.',a:{shape:'long',c:'#FF8A7A',b:'#FFE1DB',ears:'antenna',pat:'spots',pc:'#E8604F',feet:1,claws:1}},
+  {id:'driftseal',name:'Driftseal',hab:2,lesson:15,rare:2,fact:'Floats on its back and watches the clouds.',a:{shape:'long',c:'#B8C6D9',b:'#EEF3F9',tail:'fish',eyes:'sleepy'}},
+  {id:'squiddle',name:'Squiddle',hab:2,lesson:16,rare:2,fact:'Draws pictures in the sand with its arms.',a:{shape:'blob',c:'#B07CFF',b:'#EBDDFF',pat:'spots',pc:'#8F5BE6',ears:'fin'}},
+  {id:'pearlwhirl',name:'Pearlwhirl',hab:2,lesson:17,rare:3,fact:'Keeps a shiny pearl safe on its forehead.',a:{shape:'round',c:'#FFC2DD',b:'#FFF0F7',ears:'fin',tail:'fish',gem:'#FFFFFF',eyes:'sparkle'}},
+  {id:'tidetoad',name:'Tidetoad',hab:2,lesson:18,rare:3,fact:'Sings with the waves every evening.',a:{shape:'pear',c:'#4FBF9F',b:'#D7F5EA',pat:'spots',pc:'#2F9C7C',feet:1,mouth:'w'}},
+  {id:'cloudlamb',name:'Cloudlamb',hab:3,lesson:19,rare:2,fact:'Naps on top of the fluffiest cloud.',a:{shape:'round',c:'#FFFFFF',b:'#F4F1FF',ears:'round',tail:'curl',wings:'feather',feet:1,fuzz:1}},
+  {id:'breezebat',name:'Breezebat',hab:3,lesson:19,rare:2,fact:'Surfs on the wind with its big wings.',a:{shape:'round',c:'#5C6B9E',b:'#C9D2F0',ears:'pointy',wings:'bat',mouth:'fang'}},
+  {id:'starfawn',name:'Starfawn',hab:3,lesson:20,rare:3,fact:'Its spots twinkle like little stars.',a:{shape:'tall',c:'#F4C76B',b:'#FFF1CF',ears:'horns',pat:'stars',pc:'#FFFFFF',feet:1,eyes:'sparkle'}},
+  {id:'nimbuscat',name:'Nimbuscat',hab:3,lesson:20,rare:3,fact:'Makes a tiny rain cloud when it is grumpy.',a:{shape:'pear',c:'#D3D8E8',b:'#F5F7FC',ears:'pointy',tail:'curl',feet:1,mouth:'w',fuzz:1}},
+  {id:'qwertle',name:'Qwertle',hab:3,lesson:21,rare:4,fact:'A wise old turtle with a shell made of keys.',a:{shape:'long',c:'#6CC77F',b:'#E0F6E4',pat:'keys',feet:1,eyes:'sleepy'}},
+  {id:'keyvern',name:'Keyvern',hab:3,lesson:21,rare:4,fact:'A friendly dragon that only flies for super typers.',a:{shape:'tall',c:'#4D8DFF',b:'#D8E6FF',ears:'horns',wings:'bat',tail:'spike',feet:1,mouth:'fang',gem:'#FFD43B'}}
+];
+const RARE_NAME = ['','Common','Uncommon','Rare','Legend'];
+const RARE_COL = ['','#8C98B8','#3FBF73','#8C6BF2','#FF9F43'];
+
+/* body shapes on a 120 x 120 canvas: path, face height, top of head, bottom */
+const CR_SHAPE = {
+  round:{d:'M60,32 C82,32 96,48 96,70 C96,92 80,106 60,106 C40,106 24,92 24,70 C24,48 38,32 60,32 Z', ey:62, top:34, bot:106, belly:'<ellipse cx="60" cy="84" rx="22" ry="17"/>'},
+  pear:{d:'M60,30 C80,30 90,50 94,74 C98,98 82,106 60,106 C38,106 22,98 26,74 C30,50 40,30 60,30 Z', ey:58, top:32, bot:106, belly:'<ellipse cx="60" cy="86" rx="24" ry="16"/>'},
+  tall:{d:'M60,22 C80,22 88,40 88,62 C88,90 78,106 60,106 C42,106 32,90 32,62 C32,40 40,22 60,22 Z', ey:50, top:24, bot:106, belly:'<ellipse cx="60" cy="82" rx="18" ry="19"/>'},
+  long:{d:'M20,82 C20,60 38,50 60,50 C84,50 102,60 102,82 C102,98 86,106 60,106 C36,106 20,98 20,82 Z', ey:72, top:52, bot:106, belly:'<ellipse cx="60" cy="94" rx="30" ry="10"/>'},
+  blob:{d:'M24,70 C24,42 40,28 60,28 C80,28 96,42 96,70 L96,96 Q90,106 84,97 Q78,106 72,97 Q66,106 60,97 Q54,106 48,97 Q42,106 36,97 Q30,106 24,96 Z', ey:58, top:30, bot:100, belly:'<ellipse cx="60" cy="80" rx="20" ry="12"/>'}
+};
+function critterSVG(c, cls='cr'){
+  const a = c.a, S = CR_SHAPE[a.shape] || CR_SHAPE.round, u = ++_sid;
+  const ink = '#22305A', st = `stroke="${ink}" stroke-width="3" stroke-linejoin="round"`;
+  const col = a.c, dk = shade(col,-45), lt = a.b || shade(col,50);
+  const ey = S.ey, top = S.top;
+  let back = '', top1 = '', front = '';
+  // tails
+  if(a.tail==='fluff') back += `<circle cx="96" cy="${S.bot-18}" r="12" fill="${lt}" ${st}/>`;
+  if(a.tail==='curl') back += `<path d="M90,${S.bot-16} Q112,${S.bot-22} 108,${S.bot-40} Q104,${S.bot-52} 94,${S.bot-44}" fill="none" stroke="${ink}" stroke-width="10" stroke-linecap="round"/><path d="M90,${S.bot-16} Q112,${S.bot-22} 108,${S.bot-40} Q104,${S.bot-52} 94,${S.bot-44}" fill="none" stroke="${col}" stroke-width="5" stroke-linecap="round"/>`;
+  if(a.tail==='flame') back += `<path d="M88,${S.bot-14} Q108,${S.bot-20} 104,${S.bot-36}" fill="none" stroke="${ink}" stroke-width="10" stroke-linecap="round"/><path d="M88,${S.bot-14} Q108,${S.bot-20} 104,${S.bot-36}" fill="none" stroke="${col}" stroke-width="5" stroke-linecap="round"/><path d="M104,${S.bot-58} C96,${S.bot-48} 94,${S.bot-36} 104,${S.bot-32} C114,${S.bot-36} 114,${S.bot-48} 104,${S.bot-58} Z" fill="#FFC83D" ${st}/><path d="M104,${S.bot-48} C101,${S.bot-42} 101,${S.bot-37} 104,${S.bot-35} C107,${S.bot-37} 107,${S.bot-42} 104,${S.bot-48} Z" fill="#FF7A3D"/>`;
+  if(a.tail==='fish') back += `<path d="M96,${S.bot-22} L116,${S.bot-36} L112,${S.bot-16} L116,${S.bot-2} Z" fill="${dk}" ${st}/>`;
+  if(a.tail==='spike') back += `<path d="M88,${S.bot-12} Q106,${S.bot-12} 112,${S.bot-30} L104,${S.bot-26} L106,${S.bot-36} L96,${S.bot-24}" fill="${col}" ${st}/>`;
+  // wings
+  if(a.wings==='bug') back += `<ellipse cx="28" cy="${ey-4}" rx="16" ry="22" transform="rotate(-25 28 ${ey-4})" fill="rgba(255,255,255,.7)" ${st}/><ellipse cx="92" cy="${ey-4}" rx="16" ry="22" transform="rotate(25 92 ${ey-4})" fill="rgba(255,255,255,.7)" ${st}/>`;
+  if(a.wings==='feather') back += `<path d="M30,${ey+6} Q4,${ey-6} 8,${ey-30} Q20,${ey-16} 34,${ey-14} Z" fill="${lt}" ${st}/><path d="M90,${ey+6} Q116,${ey-6} 112,${ey-30} Q100,${ey-16} 86,${ey-14} Z" fill="${lt}" ${st}/>`;
+  if(a.wings==='bat') back += `<path d="M30,${ey+4} L4,${ey-24} L10,${ey-2} L2,${ey+8} L28,${ey+18} Z" fill="${dk}" ${st}/><path d="M90,${ey+4} L116,${ey-24} L110,${ey-2} L118,${ey+8} L92,${ey+18} Z" fill="${dk}" ${st}/>`;
+  // ears and head bits
+  const L = 44, R = 76;
+  if(a.ears==='pointy') top1 += `<path d="M${L-12},${top+14} L${L-8},${top-14} L${L+8},${top+4} Z M${R+12},${top+14} L${R+8},${top-14} L${R-8},${top+4} Z" fill="${col}" ${st}/><path d="M${L-8},${top+6} L${L-6},${top-6} L${L+2},${top+2} Z M${R+8},${top+6} L${R+6},${top-6} L${R-2},${top+2} Z" fill="#FFB3C7"/>`;
+  if(a.ears==='round') top1 += `<circle cx="${L-6}" cy="${top+4}" r="10" fill="${col}" ${st}/><circle cx="${R+6}" cy="${top+4}" r="10" fill="${col}" ${st}/><circle cx="${L-6}" cy="${top+4}" r="4.5" fill="${lt}"/><circle cx="${R+6}" cy="${top+4}" r="4.5" fill="${lt}"/>`;
+  if(a.ears==='long') top1 += `<ellipse cx="${L}" cy="${top-14}" rx="8" ry="22" transform="rotate(-10 ${L} ${top-14})" fill="${col}" ${st}/><ellipse cx="${R}" cy="${top-14}" rx="8" ry="22" transform="rotate(10 ${R} ${top-14})" fill="${col}" ${st}/><ellipse cx="${L}" cy="${top-12}" rx="3.5" ry="14" transform="rotate(-10 ${L} ${top-12})" fill="${lt}"/><ellipse cx="${R}" cy="${top-12}" rx="3.5" ry="14" transform="rotate(10 ${R} ${top-12})" fill="${lt}"/>`;
+  if(a.ears==='leaf') top1 += `<path d="M60,${top+2} L60,${top-8}" stroke="${ink}" stroke-width="3"/><path d="M60,${top-8} C46,${top-10} 40,${top-24} 44,${top-30} C54,${top-28} 60,${top-18} 60,${top-8} Z" fill="#4CC46A" ${st}/><path d="M60,${top-8} C74,${top-12} 80,${top-22} 78,${top-28} C68,${top-28} 62,${top-20} 60,${top-8} Z" fill="#6FD884" ${st}/>`;
+  if(a.ears==='horns') top1 += `<path d="M${L-2},${top+8} Q${L-14},${top-6} ${L-6},${top-18} Q${L-4},${top-4} ${L+8},${top+4} Z M${R+2},${top+8} Q${R+14},${top-6} ${R+6},${top-18} Q${R+4},${top-4} ${R-8},${top+4} Z" fill="#FFE8A3" ${st}/>`;
+  if(a.ears==='antenna') top1 += `<path d="M${L+4},${top+4} Q${L-4},${top-12} ${L-8},${top-18} M${R-4},${top+4} Q${R+4},${top-12} ${R+8},${top-18}" fill="none" stroke="${ink}" stroke-width="3" stroke-linecap="round"/><circle cx="${L-8}" cy="${top-19}" r="6" fill="${a.pc||'#FF8FB1'}" ${st}/><circle cx="${R+8}" cy="${top-19}" r="6" fill="${a.pc||'#FF8FB1'}" ${st}/>`;
+  if(a.ears==='crest') top1 += `<path d="M48,${top+6} L42,${top-14} L54,${top} L60,${top-20} L66,${top} L78,${top-14} L72,${top+6} Z" fill="${dk}" ${st}/>`;
+  if(a.ears==='fin') top1 += `<path d="M46,${top+6} Q58,${top-22} 76,${top+4} Z" fill="${dk}" ${st}/>`;
+  // body
+  let body = `<path d="${S.d}" fill="${col}" ${st}/>`;
+  const clip = `crc${u}`;
+  let inside = `<g fill="${lt}">${S.belly}</g>`;
+  if(a.pat==='spots') inside += `<g fill="${a.pc||dk}" opacity=".7"><circle cx="34" cy="${ey+18}" r="5"/><circle cx="86" cy="${ey+14}" r="6"/><circle cx="80" cy="${ey+30}" r="4"/><circle cx="40" cy="${ey+32}" r="3.5"/></g>`;
+  if(a.pat==='stripes') inside += `<g fill="${a.pc||dk}" opacity=".85"><rect x="0" y="${ey+14}" width="120" height="7"/><rect x="0" y="${ey+28}" width="120" height="7"/></g>`;
+  if(a.pat==='stars') inside += STAR(36,ey+20,6,a.pc||'#fff')+STAR(84,ey+16,7,a.pc||'#fff')+STAR(78,ey+34,5,a.pc||'#fff');
+  if(a.pat==='keys'){ let k=''; for(let r=0;r<2;r++) for(let i=0;i<5;i++) k+=`<rect x="${27+i*14+r*6}" y="${56+r*13}" width="11" height="10" rx="3" fill="#fff" stroke="${ink}" stroke-width="2"/>`; inside += `<path d="M24,82 C24,62 40,52 60,52 C82,52 98,62 98,82 Z" fill="${dk}"/>`+k; }
+  if(a.fuzz) inside += `<g fill="#fff" opacity=".6"><circle cx="38" cy="${top+14}" r="6"/><circle cx="52" cy="${top+6}" r="5"/></g>`;
+  body += `<clipPath id="${clip}"><path d="${S.d}"/></clipPath><g clip-path="url(#${clip})">${inside}</g><path d="${S.d}" fill="none" ${st}/>`;
+  if(a.claws) body += `<circle cx="14" cy="${ey+8}" r="9" fill="${col}" ${st}/><path d="M8,${ey+2} L14,${ey+8}" stroke="${ink}" stroke-width="3"/><circle cx="106" cy="${ey+8}" r="9" fill="${col}" ${st}/><path d="M112,${ey+2} L106,${ey+8}" stroke="${ink}" stroke-width="3"/>`;
+  const feet = a.feet ? `<ellipse cx="44" cy="${S.bot}" rx="11" ry="6" fill="${dk}" ${st}/><ellipse cx="76" cy="${S.bot}" rx="11" ry="6" fill="${dk}" ${st}/>` : '';
+  if(a.gem) front += `<path d="M60,${top+6} L66,${top+12} L60,${top+18} L54,${top+12} Z" fill="${a.gem}" ${st}/>`;
+  // face
+  const ex = 14, cx = 60;
+  let eyes;
+  if(a.eyes==='sleepy') eyes = `<path d="M${cx-ex-6},${ey} Q${cx-ex},${ey+5} ${cx-ex+6},${ey} M${cx+ex-6},${ey} Q${cx+ex},${ey+5} ${cx+ex+6},${ey}" fill="none" stroke="${ink}" stroke-width="3.5" stroke-linecap="round"/>`;
+  else if(a.eyes==='sparkle') eyes = `<ellipse cx="${cx-ex}" cy="${ey}" rx="7" ry="8.5" fill="${ink}"/><ellipse cx="${cx+ex}" cy="${ey}" rx="7" ry="8.5" fill="${ink}"/><circle cx="${cx-ex+2.5}" cy="${ey-3}" r="3" fill="#fff"/><circle cx="${cx+ex+2.5}" cy="${ey-3}" r="3" fill="#fff"/><circle cx="${cx-ex-2.5}" cy="${ey+3}" r="1.5" fill="#fff"/><circle cx="${cx+ex-2.5}" cy="${ey+3}" r="1.5" fill="#fff"/>`;
+  else eyes = `<circle cx="${cx-ex}" cy="${ey}" r="6" fill="${ink}"/><circle cx="${cx+ex}" cy="${ey}" r="6" fill="${ink}"/><circle cx="${cx-ex+2}" cy="${ey-2}" r="2.2" fill="#fff"/><circle cx="${cx+ex+2}" cy="${ey-2}" r="2.2" fill="#fff"/>`;
+  const my = ey + 12;
+  let mouth = `<path d="M${cx-6},${my} Q${cx},${my+6} ${cx+6},${my}" fill="none" stroke="${ink}" stroke-width="3" stroke-linecap="round"/>`;
+  if(a.mouth==='o') mouth = `<ellipse cx="${cx}" cy="${my+2}" rx="4" ry="5" fill="#B83B5E" stroke="${ink}" stroke-width="2.5"/>`;
+  if(a.mouth==='w') mouth = `<path d="M${cx-8},${my} Q${cx-4},${my+5} ${cx},${my} Q${cx+4},${my+5} ${cx+8},${my}" fill="none" stroke="${ink}" stroke-width="3" stroke-linecap="round"/>`;
+  if(a.mouth==='beak') mouth = `<path d="M${cx-6},${my-3} L${cx+6},${my-3} L${cx},${my+6} Z" fill="#FFA94D" ${st}/>`;
+  if(a.mouth==='fang') mouth += `<path d="M${cx-4},${my+2} L${cx-2},${my+7} L${cx},${my+3}" fill="#fff" stroke="${ink}" stroke-width="1.8"/>`;
+  const cheeks = `<ellipse cx="${cx-ex-8}" cy="${ey+9}" rx="5" ry="3.5" fill="${a.cheek||'#FF7A9A'}" opacity=".45"/><ellipse cx="${cx+ex+8}" cy="${ey+9}" rx="5" ry="3.5" fill="${a.cheek||'#FF7A9A'}" opacity=".45"/>`;
+  return `<svg class="${cls}" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><ellipse cx="60" cy="112" rx="34" ry="5" fill="rgba(34,48,90,.15)"/>${back}${top1}${body}${feet}${front}${eyes}${mouth}${cheeks}</svg>`;
+}
+const critterById = id => CRITTERS.find(c=>c.id===id);
+
+/* ---- friendship bubble (what you throw to make friends) ---- */
+function friendBubbleSVG(cls=''){ return `<svg class="${cls}" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="16" fill="rgba(255,255,255,.55)" stroke="#22305A" stroke-width="3"/><path d="M20,28 C12,22 12,15 16,14 C18,13.5 19.5,15 20,16.5 C20.5,15 22,13.5 24,14 C28,15 28,22 20,28 Z" fill="#FF5D8F"/><circle cx="13" cy="13" r="3.5" fill="#fff"/></svg>`; }
+
+/* ---- pet forms (pets grow as lessons are finished) ---- */
+const PET_FORMS = [
+  {name:'Baby', at:-1},
+  {name:'Big', at:3, why:'S and L'},
+  {name:'Super', at:6, why:'the Home Row'},
+  {name:'Star', at:12, why:'the Top Row'},
+  {name:'Legend', at:18, why:'the Bottom Row'}
+];
+function formOverlay(stage, u){
+  // drawn on the 120 x 120 pet canvas: back layer (wings, aura) and front layer (marks, sparkles)
+  const st = 'stroke="#22305A" stroke-width="2.5" stroke-linejoin="round"';
+  let back = '', front = '';
+  if(stage>=4) back += `<defs><radialGradient id="aura${u}"><stop offset="0" stop-color="#FFF3B0" stop-opacity=".9"/><stop offset="1" stop-color="#FFF3B0" stop-opacity="0"/></radialGradient></defs><circle cx="60" cy="66" r="58" fill="url(#aura${u})"/>`;
+  if(stage>=2){ const big = stage>=3; const w = big ? 'M34,80 Q-2,66 4,32 Q18,52 38,58 Z M86,80 Q122,66 116,32 Q102,52 82,58 Z' : 'M36,82 Q10,74 12,50 Q22,62 38,64 Z M84,82 Q110,74 108,50 Q98,62 82,64 Z';
+    back += `<path d="${w}" fill="${big?'#FFF3B0':'#FFFFFF'}" ${st}/>`; if(big) back += `<path d="M14,44 Q22,58 34,62 M106,44 Q98,58 86,62" fill="none" stroke="#E0A100" stroke-width="2"/>`; }
+  if(stage>=1) front += `<path d="M60,104 C54,99 52,95 55,93 C57,92 59,93 60,95 C61,93 63,92 65,93 C68,95 66,99 60,104 Z" fill="#FF5D8F" stroke="#22305A" stroke-width="1.8"/>`;
+  if(stage>=3) front += STAR(60,30,6,'#FFD43B','#22305A');
+  if(stage>=4) front += STAR(14,22,5,'#FFD43B')+STAR(106,18,4,'#FFD43B')+STAR(100,100,4,'#FFD43B')+STAR(18,96,3.5,'#FFD43B');
+  return {back, front};
+}
+
+/* ---- blocks for the builder ---- */
+// tier: 1 from the start, 2 after the Home Row, 3 after the Top Row, 4 after the Bottom Row
+const BLOCKS = [
+  {id:'g',name:'Grassy',c:'#A9773F',tier:1},{id:'d',name:'Mud',c:'#A8743F',tier:1},{id:'s',name:'Pebble',c:'#AEB8CC',tier:1},
+  {id:'w',name:'Plank',c:'#E0A866',tier:1},{id:'l',name:'Leafy',c:'#4CC46A',tier:1},{id:'a',name:'Sand',c:'#F4D58A',tier:1},
+  {id:'h',name:'Splash',c:'#5BB8FF',tier:2},{id:'c',name:'Cloud',c:'#FFFFFF',tier:2},{id:'b',name:'Brick',c:'#EE7A6A',tier:2},
+  {id:'i',name:'Glass',c:'#DDF3FF',tier:2},{id:'f',name:'Flower',c:'#FF8FB1',tier:2},{id:'n',name:'Snow',c:'#F4FAFF',tier:2},
+  {id:'p',name:'Candy',c:'#FFB3D6',tier:3},{id:'t',name:'Lantern',c:'#FFD43B',tier:3},
+  {id:'x',name:'Star',c:'#FFC83D',tier:4},{id:'y',name:'Crystal',c:'#B197FC',tier:4}
+];
+const blockById = id => BLOCKS.find(b=>b.id===id);
+// one block drawn in a 24 x 24 cell, rounded "toy tile" style
+function blockArt(id){
+  const b = blockById(id); if(!b) return '';
+  const o = 'stroke="#22305A" stroke-width="1.6" stroke-linejoin="round"';
+  const base = (fill, extra='') => `<rect x="1" y="1" width="22" height="22" rx="5" fill="${fill}" ${o}/>${extra}<path d="M5,4.5 H15" stroke="#fff" stroke-width="2" stroke-linecap="round" opacity=".55"/>`;
+  switch(id){
+    case 'g': return base('#A9773F', `<path d="M1.8,9 V6 Q1.8,1.8 6,1.8 H18 Q22.2,1.8 22.2,6 V9 Q19,11 17,8.5 Q14.5,11.5 12,8.5 Q9.5,11.5 7,8.5 Q4.5,11 1.8,9 Z" fill="#5BD16E" ${o}/>`);
+    case 'd': return base('#A8743F', `<circle cx="8" cy="14" r="1.6" fill="#7C5228"/><circle cx="16" cy="9" r="1.4" fill="#7C5228"/><circle cx="15" cy="18" r="1.8" fill="#7C5228"/>`);
+    case 's': return base('#AEB8CC', `<ellipse cx="8" cy="15" rx="4" ry="3" fill="#8F9AB2"/><ellipse cx="16.5" cy="10" rx="3.5" ry="2.6" fill="#C9D1E0"/><ellipse cx="16" cy="18" rx="2.6" ry="2" fill="#8F9AB2"/>`);
+    case 'w': return base('#E0A866', `<path d="M1.8,9 H22.2 M1.8,16 H22.2 M9,1.8 V9 M15,9 V16 M8,16 V22.2" stroke="#A8743F" stroke-width="1.6"/>`);
+    case 'l': return base('#4CC46A', `<path d="M7,15 C4,12 6,7 10,7 C10,11 9,13 7,15 Z M16,18 C13,15 15,10 19,10 C19,14 18,16 16,18 Z" fill="#2F9C4D"/>`);
+    case 'a': return base('#F4D58A', `<circle cx="7" cy="16" r="1" fill="#D9B45E"/><circle cx="12" cy="12" r="1" fill="#D9B45E"/><circle cx="17" cy="17" r="1" fill="#D9B45E"/><circle cx="16" cy="8" r="1" fill="#D9B45E"/>`);
+    case 'h': return `<rect x="1" y="1" width="22" height="22" rx="5" fill="#5BB8FF" opacity=".85" ${o}/><path d="M4,10 Q7,7 10,10 T16,10 T22,10" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"/><path d="M3,16 Q6,13 9,16 T15,16 T21,16" fill="none" stroke="#D6F0FF" stroke-width="1.6" stroke-linecap="round"/>`;
+    case 'c': return `<path d="M5,19 C1,19 1,13 5,12.5 C5,7 12,5 14,9 C17,6 22,8 21,12.5 C24,13.5 23.5,19 19.5,19 Z" fill="#fff" ${o}/>`;
+    case 'b': return base('#EE7A6A', `<path d="M1.8,8.5 H22.2 M1.8,15.5 H22.2 M8,1.8 V8.5 M16,1.8 V8.5 M12,8.5 V15.5 M6,15.5 V22.2 M18,15.5 V22.2" stroke="#FFE1DB" stroke-width="1.6"/>`);
+    case 'i': return `<rect x="1" y="1" width="22" height="22" rx="5" fill="#DDF3FF" opacity=".55" ${o}/><path d="M6,17 L17,6 M10,19 L19,10" stroke="#fff" stroke-width="2" stroke-linecap="round"/>`;
+    case 'f': return `<path d="M12,22 V13" stroke="#2F9C4D" stroke-width="2"/><path d="M12,18 Q16,15 18,17" fill="none" stroke="#2F9C4D" stroke-width="2"/>${[0,72,144,216,288].map(d=>`<circle cx="${(12+Math.cos(d*Math.PI/180)*4.2).toFixed(1)}" cy="${(9+Math.sin(d*Math.PI/180)*4.2).toFixed(1)}" r="3.4" fill="#FF8FB1" stroke="#22305A" stroke-width="1.2"/>`).join('')}<circle cx="12" cy="9" r="2.6" fill="#FFD43B" stroke="#22305A" stroke-width="1.2"/>`;
+    case 'n': return base('#F4FAFF', `<path d="M12,7 V17 M7.5,9.5 L16.5,14.5 M16.5,9.5 L7.5,14.5" stroke="#9AD0FF" stroke-width="1.6" stroke-linecap="round"/>`);
+    case 'p': return base('#FFB3D6', `<path d="M1.8,12 L12,1.8 M5,22 L22,5 M14,22.2 L22.2,14" stroke="#fff" stroke-width="3"/>`);
+    case 't': return `<rect x="1" y="1" width="22" height="22" rx="5" fill="#FFE98A" ${o}/><circle cx="12" cy="12" r="6" fill="#FFF8D6"/><rect x="9" y="7" width="6" height="10" rx="2.5" fill="#FFC83D" stroke="#22305A" stroke-width="1.2"/>`;
+    case 'x': return base('#FFC83D', STAR(12,12.5,7,'#FFF3B0','#22305A'));
+    case 'y': return base('#B197FC', `<path d="M12,4 L18,10 L12,20 L6,10 Z" fill="#E3D9FF" stroke="#22305A" stroke-width="1.3"/><path d="M6,10 H18 M12,4 L10,10 L12,20 L14,10 Z" fill="none" stroke="#8C6BF2" stroke-width="1"/>`);
+  }
+  return base(b.c);
+}
+function blockIcon(id, size=28){ return `<svg viewBox="0 0 24 24" width="${size}" height="${size}" aria-hidden="true">${blockArt(id)}</svg>`; }
 /* ===== Paws & Keys: app ===== */
 const STORE_KEY = 'pawsandkeys.v1';
 let DB = {players:{}, order:[], last:null};
@@ -923,11 +1205,28 @@ function fixPlayer(p){
     if(Object.values(old).some(l=>l && l.stars)) moved[0] = {stars:1,bestWpm:0,bestAcc:1,plays:0};
     p.lessons = moved; p.v = 2;
   }
+  if(p.gate===undefined) p.gate = {free:2};  // saves from before play rounds get 2 to start
   const d = blankPlayer(p.name||'Player');
   for(const k of Object.keys(d)){
     if(p[k]===undefined) p[k]=d[k];
     else if(d[k] && typeof d[k]==='object' && !Array.isArray(d[k])) for(const kk of Object.keys(d[k])) if(p[k][kk]===undefined) p[k][kk]=d[k][kk];
   }
+  const obj = x => x && typeof x==='object' && !Array.isArray(x);
+  if(!obj(p.critters)) p.critters = {};
+  for(const k of Object.keys(p.critters)) if(typeof p.critters[k]!=='number' || !(p.critters[k]>0)) delete p.critters[k];
+  if(!obj(p.blocks)) p.blocks = {};
+  for(const k of Object.keys(p.blocks)) if(typeof p.blocks[k]!=='number' || !(p.blocks[k]>=0)) delete p.blocks[k]; else p.blocks[k] = Math.floor(p.blocks[k]);
+  if(!obj(p.world)) p.world = {g:'',c:[],gift:0,placed:0};
+  if(typeof p.world.g!=='string') p.world.g = '';
+  if(!Array.isArray(p.world.c)) p.world.c = [];
+  p.world.c = p.world.c.filter(f=>Array.isArray(f) && f.length===3 && typeof f[0]==='number' && typeof f[1]==='number' && typeof f[2]==='string').slice(0,12);
+  if(typeof p.world.placed!=='number') p.world.placed = 0;
+  if(!obj(p.gate) || typeof p.gate.free!=='number') p.gate = {free:0};
+  if(!obj(p.pay)) p.pay = {day:'',n:0};
+  if(typeof p.evoSeen!=='number') p.evoSeen = 0;
+  for(const g of ['catch','battle']) if(!obj(p.games[g])) p.games[g] = g==='catch' ? {plays:0,caught:0} : {plays:0,wins:0};
+  if(!Array.isArray(p.pets)) p.pets = [];
+  p.pets = p.pets.filter(obj);
   if(!p.pets.length) { const pet={uid:uid(),kind:'kitten',name:'Kitty',color:'natural',acc:'none'}; p.pets.push(pet); p.activePet=pet.uid; }
   if(!p.pets.find(x=>x.uid===p.activePet)) p.activePet = p.pets[0].uid;
   return p;
@@ -936,13 +1235,15 @@ function blankPlayer(name){
   return {id:'p'+uid(), v:2, name, created:Date.now(), updated:Date.now(), coins:30,
     avatar:{hair:'short',hairColor:'brown',skin:'s3',eyes:'dots',mouth:'smile',outfit:'tee',outfitColor:'blue',hat:'none',extra:'none',bg:'sky'},
     owned:[], pets:[], activePet:null, lessons:{}, stickers:{}, badges:{},
-    games:{bubble:{plays:0,best:0},dash:{plays:0,wins:0},dig:{plays:0}},
+    games:{bubble:{plays:0,best:0},dash:{plays:0,wins:0},dig:{plays:0},catch:{plays:0,caught:0},battle:{plays:0,wins:0}},
     stats:{keys:0,correct:0,ms:0,lessonsDone:0,bestWpm:0,recentWpm:[]},
     daily:{day:'',count:0,claimed:false,gift:'',opened:''}, streak:{count:0,last:''},
     path:{lesson:-1,m:0,plays:0},
     fingers:Object.fromEntries([...FINGER_ORDER,'th'].map(f=>[f,{ok:0,miss:0}])), keyMiss:{},
     tech:{quizBest:0,quizPlays:0,gymDone:0,eyesUpLessons:0,handsHome:0},
-    settings:{sound:true,voice:true,size:'short',eyesUp:false}};
+    settings:{sound:true,voice:true,size:'short',eyesUp:false},
+    critters:{}, blocks:{}, world:{g:'',c:[],gift:0,placed:0}, evoSeen:0,
+    gate:{free:0}, pay:{day:'',n:0}};
 }
 
 /* ---------- sound + voice ---------- */
@@ -965,7 +1266,12 @@ const SFX = {
   badge:()=>[784,988,1175,1568].forEach((f,i)=>tone(f,.14,'sine',.07,i*.09)),
   hop:()=>tone(300,.15,'sine',.06,0,700),
   dig:()=>tone(160,.12,'sawtooth',.03,0,90),
-  pet:()=>{tone(700,.1,'sine',.05,0,1000);tone(900,.12,'sine',.04,.1,1200);}
+  pet:()=>{tone(700,.1,'sine',.05,0,1000);tone(900,.12,'sine',.04,.1,1200);},
+  throw:()=>tone(500,.25,'sine',.05,0,1100),
+  catch:()=>[659,784,988,1319].forEach((f,i)=>tone(f,.12,'sine',.07,i*.08)),
+  hit:()=>{tone(260,.12,'square',.04,0,520);tone(880,.08,'triangle',.05,.06);},
+  evolve:()=>[392,523,659,784,1047,1319].forEach((f,i)=>tone(f,.2,'triangle',.07,i*.13)),
+  place:()=>tone(620,.05,'triangle',.05,0,480)
 };
 function sfx(n){ if(P && !P.settings.sound) return; try{ SFX[n] && SFX[n](); }catch(e){} }
 let VOICES = [], VOICE = null;
@@ -1022,8 +1328,8 @@ function gameLetters(){ let k = knownNow().replace(/[^a-z]/g,''); if(k.length < 
 function gameKeysHTML(){ const L = [...new Set(gameLetters())]; return `<p class="gk">Your keys: <b>${esc(L.join(' '))}</b></p>`; }
 
 /* ---------- learning path: lesson, then practice games until mastered, then the next lesson ---------- */
-const GAME_NAME = {bubble:'Bubble Pop', dash:'Pet Dash', dig:'Treasure Dig'};
-const GAME_ORDER = ['bubble','dash','dig'];
+const GAME_NAME = {bubble:'Bubble Pop', dash:'Pet Dash', dig:'Treasure Dig', catch:'Critter Catch', battle:'Critter Battle'};
+const GAME_ORDER = ['bubble','catch','dash','battle','dig'];
 function practicing(){ const p = P.path; if(!p || p.lesson<0 || p.m>=100) return false; const L = LESSONS[p.lesson]; return !!(L && L.keys && L.kind!=='hands' && nextLesson()===p.lesson+1 && !lessonDone(p.lesson+1)); }
 function focusKeys(){ return practicing() ? [...LESSONS[P.path.lesson].keys.replace(/[^a-z]/g,'')] : []; }
 function nextStep(){
@@ -1038,14 +1344,16 @@ function keyChipsHTML(keys){ return keys.map(k=>`<span class="kchip" style="--fc
 // call when a game ends; acc is 0..1
 function practiceResult(acc){
   const was = practicing();
-  if(!was) return {note:'', after:nextStep(), was};
+  if(!was && !allLessonsDone()) P.gate.free = Math.max(0, (P.gate.free||0) - 1);
+  const blk = rewardBlocks(blocksFor(acc));
+  if(!was){ save(); return {note:blk+roundsNote(), after:nextStep(), was}; }
   const keys = focusKeys();
   const pts = acc>=.9 ? 50 : acc>=.8 ? 35 : acc>=.65 ? 20 : 10;
   P.path.plays++; P.path.m = Math.min(100, P.path.m + pts); save();
   const done = P.path.m >= 100;
   if(done) setTimeout(()=>say('You mastered your new keys! Time for the next lesson.'), 1200);
   const note = `<div class="pathnote"><p>${done ? `You mastered ${keyChipsHTML(keys)}!` : `Practicing ${keyChipsHTML(keys)}`}</p>${meterHTML(P.path.m)}${done ? '' : `<p class="note">${acc>=.8 ? 'Great typing! One more round to master them.' : 'Slow and steady wins. Go for right on the first try!'}</p>`}</div>`;
-  return {note, after:nextStep(), was};
+  return {note:note+blk+roundsNote(), after:nextStep(), was};
 }
 function gameActs(pr, again, againLabel, homeBtn){
   const step = pr.after;
@@ -1094,6 +1402,8 @@ function checkBadges(extra={}){
     bubble: !!extra.bubble, racer: P.games.dash.wins>=1, digger: Object.keys(P.stickers).length>=10,
     shopper: P.owned.length>=1 || P.pets.length>=2, petpal: P.pets.length>=2, goal: !!P.badges.goal,
     handshome: lessonDone(0), quiz: P.tech.quizBest>=10, gym: P.tech.gymDone>=5, eyesup: P.tech.eyesUpLessons>=1,
+    catch1: Object.keys(P.critters).length>=1, catch10: Object.keys(P.critters).length>=10, battle1: P.games.battle.wins>=1,
+    builder: P.world.placed>=30, evolve: (P.evoSeen||0)>=1,
     allfingers: FINGER_ORDER.every(f=>{ const x=P.fingers[f]; return x && x.ok+x.miss>=40 && x.ok/(x.ok+x.miss)>=.9; })
   };
   for(const b of BADGES){ if(conds[b.id] && !P.badges[b.id]){ P.badges[b.id]=Date.now(); got.push(b); } }
@@ -1135,6 +1445,7 @@ function petHearts(el){
 /* ---------- navigation ---------- */
 const SCREENS = {};
 function go(name, arg){
+  if(P && GATED_GAMES.includes(name) && !gameAllowed()){ lockedGame(); return; }
   cleanups.forEach(f=>{try{f()}catch(e){}}); cleanups=[]; keyHandler=null; SCR={}; closeModal();
   try{ window.speechSynthesis && window.speechSynthesis.cancel(); }catch(e){}
   SCREENS[name](arg);
@@ -1437,6 +1748,7 @@ SCREENS.home = () => {
   const nl = nextLesson(), pet = activePet();
   const doneCount = LESSONS.filter((l,i)=>lessonDone(i)).length;
   const today = dayStr(); const dc = P.daily.day===today ? P.daily.count : 0;
+  const lk = gameAllowed() ? '' : ' locked', lkTag = lk ? '<span class="lktag">😴 Lesson first</span>' : '';
   app.innerHTML = topbar() + `<div class="main wrap"><div class="home"><div class="lcol">
     <div class="card stage-card">
       <div class="stage" style="background:${find(BG,P.avatar.bg).css}">${avatarSVG(P.avatar)}<span data-act="petme">${petSVG(pet)}</span></div>
@@ -1448,18 +1760,25 @@ SCREENS.home = () => {
       ${nextStepCard()}
       <button class="tile lessons" data-act="map"><h3>Typing Lessons</h3><p>Next up: <b>${esc(LESSONS[nl].title)}</b></p><p>${doneCount} of ${LESSONS.length} done</p>${keysArt()}</button>
       <button class="tile gymt" data-act="gym"><h3>Finger Gym</h3><p>${trickyFinger()?'Practice your '+esc(FINGER_NAME[trickyFinger()].toLowerCase()):'Quiz and drills for every finger'}</p><span class="art" style="font-size:62px;display:grid;place-items:center">💪</span></button>
-      <button class="tile bubble" data-act="bubble"><h3>Bubble Pop</h3><p>Pop letters before they float away</p>${gameKeysHTML()}${bubbleArt()}</button>
-      <button class="tile dash" data-act="dash"><h3>Pet Dash</h3><p>Type words to race your pet</p>${gameKeysHTML()}<svg class="art" viewBox="0 0 120 120">${petSVG(pet).replace(/^<svg[^>]*>|<\/svg>$/g,'')}</svg></button>
-      <button class="tile dig" data-act="dig"><h3>Treasure Dig</h3><p>Type words, dig up stickers</p>${gameKeysHTML()}${shovelArt()}</button>
+      ${roundsBar()}
+      <button class="tile bubble${lk}" data-act="bubble"><h3>Bubble Pop</h3><p>Pop letters before they float away</p>${gameKeysHTML()}${bubbleArt()}${lkTag}</button>
+      <button class="tile dash${lk}" data-act="dash"><h3>Pet Dash</h3><p>Type words to race your pet</p>${gameKeysHTML()}<svg class="art" viewBox="0 0 120 120">${petSVG(pet).replace(/^<svg[^>]*>|<\/svg>$/g,'')}</svg>${lkTag}</button>
+      <button class="tile dig${lk}" data-act="dig"><h3>Treasure Dig</h3><p>Type words, dig up stickers</p>${gameKeysHTML()}${shovelArt()}${lkTag}</button>
+      <button class="tile catcht${lk}" data-act="catch"><h3>Critter Catch</h3><p>Clean words throw friend bubbles</p>${gameKeysHTML()}${tileCritterArt(critterById('mossbun'))}${lkTag}</button>
+      <button class="tile battlet${lk}" data-act="battle"><h3>Critter Battle</h3><p>No mistakes and every attack hits</p>${gameKeysHTML()}${tileCritterArt(critterById('honeybuzz'))}${lkTag}</button>
+      <button class="tile buildt" data-act="build"><h3>Block Builder</h3><p>${blockCount()} blocks to build with</p><span class="art blockart">${blockIcon('g',44)}${blockIcon('w',44)}${blockIcon('l',44)}</span></button>
+      <button class="tile bookt" data-act="book"><h3>Critter Book</h3><p>${caughtCount()} of ${CRITTERS.length} friends</p>${tileCritterArt(critterById(Object.keys(P.critters).find(id=>critterById(id))||'sproutle'))}</button>
       <button class="tile stickers" data-act="stickers"><h3>Stickers</h3><p>${Object.keys(P.stickers).length} of ${STICKERS.length} found</p><span class="art" style="font-size:62px;display:grid;place-items:center">🦖</span></button>
       <button class="tile badges" data-act="badges"><h3>Badges</h3><p>${BADGES.filter(b=>P.badges[b.id]).length} of ${BADGES.length}</p><span class="art" style="font-size:62px;display:grid;place-items:center">🏅</span></button>
     </div></div></div>`;
   SCR.gym=()=>go('gym'); SCR.map=()=>go('map'); SCR.bubble=()=>go('bubble'); SCR.dash=()=>go('dash'); SCR.dig=()=>go('dig');
+  SCR.catch=()=>go('catch'); SCR.battle=()=>go('battle'); SCR.build=()=>go('build'); SCR.book=()=>go('book');
   SCR.studio=()=>go('studio'); SCR.pets=()=>go('pets'); SCR.badges=()=>go('badges'); SCR.stickers=()=>go('stickers');
   SCR.petme = b => { petHearts(b); };
   SCR.chest = () => openChest();
   SCR.step = () => goStep(nextStep());
-  if(P.daily.gift !== today){
+  const evo = checkEvolution();
+  if(!evo && P.daily.gift !== today){
     P.daily.gift = today; save();
     setTimeout(()=>{ if(currentScreen!=='home') return; sfx('win'); openModal(`<div style="width:120px">${ICON.chest}</div><h2>Daily gift!</h2><p>Welcome back, ${esc(P.name)}. Here are 10 coins.</p>${showStreak()?`<p>${ICON.flame.replace('<svg','<svg width="26" height="26" style="vertical-align:middle"')} ${showStreak()} day streak. Play today to keep it going!</p>`:''}<div class="acts"><button class="btn big sun" data-m="ok" data-default>Yay!</button></div>`, {ok:()=>{ closeModal(); addCoins(10); }}); say('Daily gift! 10 coins'); }, 350);
   }
@@ -1550,10 +1869,15 @@ SCREENS.lesson = idx => {
     const prev = P.lessons[idx] || {stars:0,bestWpm:0,bestAcc:0,plays:0};
     const firstTime = !prev.stars;
     const bonus = Math.max(0, stars - prev.stars)*10;
-    const eyesBonus = eyes ? 10 : 0;
-    const coins = 10 + stars*5 + bonus + eyesBonus;
+    const improved = stars > (prev.stars||0);
+    const eyesBonus = eyes && !prev.eyes ? 10 : 0;   // once per lesson
+    // replaying a lesson without doing better pays very little, so coins come from learning new keys
+    const coins = firstTime ? 10 + stars*5 + bonus + eyesBonus : improved ? 5 + bonus + eyesBonus : 2 + eyesBonus;
+    if(firstTime) grantRounds();
     if(L.keys && (firstTime || (P.path && P.path.lesson===idx))) { if(firstTime || !P.path) P.path = {lesson:idx, m:0, plays:0}; }
     P.lessons[idx] = {stars:Math.max(stars,prev.stars), bestWpm:Math.max(wpm,prev.bestWpm||0), bestAcc:Math.max(acc,prev.bestAcc||0), plays:(prev.plays||0)+1};
+    if(eyes || prev.eyes) P.lessons[idx].eyes = 1;
+    const blk = rewardBlocks(firstTime ? 4 : improved ? 2 : 0);
     P.stats.keys += S.keys; P.stats.correct += S.firstOK; if(firstTime) P.stats.lessonsDone++;
     P.stats.bestWpm = Math.max(P.stats.bestWpm, wpm); P.stats.recentWpm = [...P.stats.recentWpm, wpm].slice(-10);
     if(eyes) P.tech.eyesUpLessons++;
@@ -1567,7 +1891,8 @@ SCREENS.lesson = idx => {
     openModal(`<h2>${stars===3?'Perfect!':stars===2?'Great job!':'You did it!'}</h2>
       <div class="bigstars">${[1,2,3].map(n=>(n<=stars?ICON.star:ICON.starOff).replace('<svg',`<svg style="animation-delay:${n*.25}s"`)).join('')}</div>
       <div class="stats"><div class="stat"><b>${Math.round(acc*100)}%</b><span>right on first try</span></div><div class="stat"><b>${wpm}</b><span>words a minute</span></div><div class="stat"><b>+${coins}</b><span>coins</span></div></div>
-      ${eyes?'<p><b>🙈 Eyes Up bonus: +10 coins</b></p>':''}
+      ${eyesBonus?'<p><b>🙈 Eyes Up bonus: +10 coins</b></p>':''}${blk}
+      ${firstTime ? `<p class="note">🎮 You earned ${ROUNDS_PER_LESSON} game rounds!</p>` : (!improved ? '<p class="note">Replays give 2 coins. New lessons and more stars give lots more!</p>' : '')}
       ${tricky.length && stars<3 ? `<p>Tricky keys: ${tricky.map(k=>`<span class="kchip" style="--fc:${FINGER_COL[FINGER[k]]}">${esc(k)}</span>`).join(' ')}</p><p class="note">Practice them in the Finger Gym.</p>`:''}
       ${firstTime && hasNext ? `<p>New lesson unlocked: <b>${esc(LESSONS[idx+1].title)}</b></p>`:''}
       ${goalMsg?`<p><b>${goalMsg}</b></p>`:''}
@@ -1696,14 +2021,16 @@ SCREENS.handshome = idx => {
       P.lessons[idx] = {stars:3, bestWpm:prev.bestWpm||0, bestAcc:Math.max(prev.bestAcc||0, S.ok/S.chars), plays:(prev.plays||0)+1};
       if(firstTime) P.stats.lessonsDone++;
       P.tech.handsHome++;
-      const coins = firstTime ? 40 : 10;
+      const coins = firstTime ? 40 : 2;
+      if(firstTime) grantRounds();
       addCoins(coins);
+      const blk = rewardBlocks(firstTime ? 4 : 0);
       const goalMsg = recordActivity(60000);
       const badges = checkBadges();
       sfx('win'); confetti(); say('You know where your hands live! Three stars!');
       openModal(`<h2>Hands home!</h2><div class="bigstars">${[1,2,3].map(n=>ICON.star.replace('<svg',`<svg style="animation-delay:${n*.25}s"`)).join('')}</div>
         <div class="hands big">${handsSVG(null,{color:true})}</div>
-        <p>Pointer fingers on <b>F</b> and <b>J</b>. Thumbs on space. Reach, then come back home!</p><p><b>+${coins} coins</b></p>${goalMsg?`<p><b>${goalMsg}</b></p>`:''}
+        <p>Pointer fingers on <b>F</b> and <b>J</b>. Thumbs on space. Reach, then come back home!</p><p><b>+${coins} coins</b></p>${blk}${firstTime ? `<p class="note">🎮 You earned ${ROUNDS_PER_LESSON} game rounds!</p>` : ''}${goalMsg?`<p><b>${goalMsg}</b></p>`:''}
         ${savedNote()}<div class="acts"><button class="btn" data-m="map">Map</button><button class="btn big grass" data-m="next" data-default>Next lesson</button></div>`,
         {map:()=>go('map'), next:()=>go('lesson', idx+1)});
       setTimeout(()=>badgeToasts(badges), 900);
@@ -1712,6 +2039,8 @@ SCREENS.handshome = idx => {
 };
 
 /* ---- Finger Gym ---- */
+// drills and quizzes pay full coins twice a day, then 1 coin, so coins come from new lessons
+function gymPay(full){ const t = dayStr(); if(P.pay.day!==t){ P.pay.day=t; P.pay.n=0; } P.pay.n++; return P.pay.n<=2 ? full : 1; }
 function knownNow(){ const last = LESSONS.length-1; if(lessonDone(last)) return knownKeysFor(last); const n = nextLesson(); return n>0 ? knownKeysFor(n-1) : ''; }
 function fingerKeys(f, known){ return Object.keys(FINGER).filter(k=>FINGER[k]===f && known.includes(k)); }
 SCREENS.gym = () => {
@@ -1769,7 +2098,7 @@ SCREENS.drill = f => {
   };
   const done = () => {
     keyHandler = null;
-    const acc = S.ok/S.chars, stars = acc>=.97?3:acc>=.9?2:1, coins = 8 + stars*4;
+    const acc = S.ok/S.chars, stars = acc>=.97?3:acc>=.9?2:1, coins = gymPay(8 + stars*4);
     P.tech.gymDone++; addCoins(coins);
     const goalMsg = recordActivity(45000), badges = checkBadges();
     sfx('win'); if(stars===3) confetti();
@@ -1815,7 +2144,7 @@ SCREENS.quiz = () => {
   };
   const end = () => {
     P.tech.quizPlays++; P.tech.quizBest = Math.max(P.tech.quizBest, score);
-    const coins = score*2 + (score===10?10:0); addCoins(coins);
+    const coins = gymPay(score*2 + (score===10?10:0)); addCoins(coins);
     const goalMsg = recordActivity(40000), badges = checkBadges();
     sfx('win'); if(score===10) confetti();
     say(score===10 ? 'Ten out of ten! You are a finger expert!' : `You got ${score} out of 10!`);
@@ -2054,7 +2383,9 @@ SCREENS.pets = (tab='mine') => {
     if(tab==='acc') opts = PETACC.map(a=>{ const own=owns('petAcc',a.id); return `<button class="opt ${pet.acc===a.id?'on':''} ${own?'':'locked'}" data-act="pacc" data-id="${a.id}"><span class="th">${petSVG({...pet,acc:a.id})}</span><span class="nm">${esc(a.name)}</span>${own?'':`<span class="price">${ICON.coin}${a.price}</span>`}</button>`; }).join('');
     app.innerHTML = topbar() + `<div class="main wrap fit"><div class="studio">
       <div class="card preview"><div class="stage" style="background:${find(BG,P.avatar.bg).css};display:grid;place-items:center"><span data-act="petme" style="width:70%;max-width:220px;display:block">${petSVG(pet).replace('class="pt"','class="ptbig" style="width:100%"')}</span></div>
-        <div style="padding:10px;text-align:center;display:flex;flex-direction:column;gap:8px;align-items:center"><b style="font-family:var(--display);font-size:28px">${esc(pet.name)}</b><span class="note">Tap ${esc(pet.name)} to give a cuddle</span><button class="btn small" data-act="prename">Rename</button></div></div>
+        <div style="padding:10px;text-align:center;display:flex;flex-direction:column;gap:8px;align-items:center"><b style="font-family:var(--display);font-size:28px">${esc(pet.name)}</b><span class="note">Tap ${esc(pet.name)} to give a cuddle</span><button class="btn small" data-act="prename">Rename</button>
+          <div class="forms"><b>Form</b>${PET_FORMS.slice(0, playerStage(P)+1).map((f,i)=>`<button class="btn small ${petStage(pet)===i?'sun':''}" data-act="pform" data-i="${i}">${esc(f.name)}</button>`).join('')}</div>
+          <span class="note">${esc(nextFormHint(P))}</span></div></div>
       <div class="card panel"><div class="tabs">${[['mine','My pets'],['adopt','Adopt'],['color','Colors'],['acc','Accessories']].map(([k,n])=>`<button class="tab ${k===tab?'on':''}" data-act="ptab" data-k="${k}">${n}</button>`).join('')}</div>
         ${tab==='color'||tab==='acc'?`<p class="note" style="margin:0 0 8px">For ${esc(pet.name)}. Colors and accessories work on all your pets once you have them.</p>`:''}
         <div class="opts">${opts}</div></div>
@@ -2078,6 +2409,7 @@ SCREENS.pets = (tab='mine') => {
     $('#rn').addEventListener('keydown', e=>{ if(e.key==='Enter'){ e.preventDefault(); MODAL.handlers.ok(); } });
   };
   SCR.prename = renamePet;
+  SCR.pform = b => { const i = +b.dataset.i, pet = activePet(); if(i>=playerStage(P)) delete pet.form; else pet.form = i; save(); sfx('pet'); render(); };
   render();
 };
 
@@ -2112,10 +2444,11 @@ SCREENS.grown = () => {
   let persisted = 'unknown';
   app.innerHTML = `<div class="topbar wrap"><button class="btn" data-act="gback">${ICON.back.replace('<svg','<svg width="26" height="26"')} Back</button><h2 style="font-size:30px">Grown-ups</h2></div>
   <div class="main wrap"><div class="grown">
-    <div class="card sec"><h2>Progress</h2>${list.length?`<div class="tbl-wrap"><table><thead><tr><th>Player</th><th>Lessons</th><th>Stars</th><th>Best speed</th><th>Accuracy</th><th>Keys typed</th><th>Minutes</th><th>Streak</th><th>Coins</th><th></th></tr></thead><tbody>
-      ${list.map(p=>`<tr><td><b>${esc(p.name)}</b></td><td>${Object.values(p.lessons).filter(l=>l.stars).length} / ${LESSONS.length}</td><td>${Object.values(p.lessons).reduce((s,l)=>s+(l.stars||0),0)}</td><td>${p.stats.bestWpm} wpm</td><td>${avgAcc(p)}%</td><td>${p.stats.keys.toLocaleString()}</td><td>${mins(p.stats.ms)}</td><td>${p.streak.count}</td><td>${p.coins}</td>
-        <td style="white-space:nowrap"><button class="btn small" data-act="gcode" data-id="${p.id}">Backup code</button> <button class="btn small" data-act="gcoins" data-id="${p.id}">+50 coins</button> <button class="btn small berry" data-act="gdel" data-id="${p.id}">Delete</button></td></tr>`).join('')}</tbody></table></div>`:'<p>No players yet.</p>'}
-      <p class="note">Accuracy counts keys pressed right on the first try. Speed is words per minute in lessons (5 letters = 1 word).</p></div>
+    <div class="card sec"><h2>Progress</h2>${list.length?`<div class="tbl-wrap"><table><thead><tr><th>Player</th><th>Lessons</th><th>Stars</th><th>Best speed</th><th>Accuracy</th><th>Keys typed</th><th>Minutes</th><th>Streak</th><th>Coins</th><th>Critters</th><th>Game rounds</th><th></th></tr></thead><tbody>
+      ${list.map(p=>`<tr><td><b>${esc(p.name)}</b></td><td>${Object.values(p.lessons).filter(l=>l.stars).length} / ${LESSONS.length}</td><td>${Object.values(p.lessons).reduce((s,l)=>s+(l.stars||0),0)}</td><td>${p.stats.bestWpm} wpm</td><td>${avgAcc(p)}%</td><td>${p.stats.keys.toLocaleString()}</td><td>${mins(p.stats.ms)}</td><td>${p.streak.count}</td><td>${p.coins}</td><td>${Object.keys(p.critters||{}).length} / ${CRITTERS.length}</td><td>${p.lessons[LESSONS.length-1]&&p.lessons[LESSONS.length-1].stars ? 'unlimited' : (p.gate?p.gate.free:0)}</td>
+        <td style="white-space:nowrap"><button class="btn small" data-act="gcode" data-id="${p.id}">Backup code</button> <button class="btn small" data-act="gcoins" data-id="${p.id}">+50 coins</button> <button class="btn small" data-act="grounds" data-id="${p.id}">+3 game rounds</button> <button class="btn small berry" data-act="gdel" data-id="${p.id}">Delete</button></td></tr>`).join('')}</tbody></table></div>`:'<p>No players yet.</p>'}
+      <p class="note">Accuracy counts keys pressed right on the first try. Speed is words per minute in lessons (5 letters = 1 word).</p>
+      <p class="note">Games are earned by learning: each new lesson gives ${ROUNDS_PER_LESSON} game rounds, and the practice games after a lesson are always free until its keys are mastered. Replaying old lessons or drills pays very little. "+3 game rounds" gives a player extra play.</p></div>
     <div class="card sec"><h2>Fingers</h2>${list.length?`<div class="tbl-wrap"><table><thead><tr><th>Player</th>${FINGER_ORDER.map(f=>`<th>${esc(FINGER_NAME[f].replace(' finger','').replace('Left','L').replace('Right','R'))}</th>`).join('')}<th>Thumbs</th><th>Tricky keys</th><th>Technique</th></tr></thead><tbody>
       ${list.map(p=>{ const pc = f => { const x=p.fingers&&p.fingers[f]; if(!x||x.ok+x.miss<15) return '<td class="note">-</td>'; const v=Math.round(x.ok/(x.ok+x.miss)*100); return `<td${v<85?' style="color:var(--berry-d);font-weight:700"':''}>${v}%</td>`; };
         const tk = Object.entries(p.keyMiss||{}).sort((a,b)=>b[1]-a[1]).filter(e=>e[1]>=2).slice(0,3).map(e=>esc(e[0])).join(' ') || '-';
@@ -2146,6 +2479,7 @@ SCREENS.grown = () => {
   SCR.gback = () => { P = prevP && DB.players[prevP.id] ? DB.players[prevP.id] : null; go(P?'home':'profiles'); };
   SCR.gcode = b => showCode('Backup code for '+DB.players[b.dataset.id].name, [DB.players[b.dataset.id]]);
   SCR.gall = () => showCode('Backup code for everyone', list);
+  SCR.grounds = b => { const p = DB.players[b.dataset.id]; p.gate.free = (p.gate.free||0) + 3; p.updated = Date.now(); saveNow(); go('grown'); };
   SCR.gcoins = b => { const p = DB.players[b.dataset.id]; p.coins += 50; p.updated = Date.now(); saveNow(); go('grown'); };
   SCR.gdel = b => {
     const p = DB.players[b.dataset.id];
@@ -2171,6 +2505,406 @@ function fillVoices(){
   if(!VOICES.length) sel.innerHTML = '<option value="">No voices found on this device</option>';
 }
 
+/* ===== Expansion: critter catching, critter book, typing battles, block builder, pet forms, play rounds ===== */
+
+/* ---------- pet forms ---------- */
+function playerStage(p){ p = p || P; if(!p || !p.lessons) return 0; let s = 0; for(const f of PET_FORMS) if(f.at>=0 && p.lessons[f.at] && p.lessons[f.at].stars) s++; return s; }
+function petOwner(pet){
+  if(!pet || !pet.uid) return null;
+  if(P && P.pets && P.pets.some(x=>x.uid===pet.uid)) return P;
+  return Object.values(DB.players).find(p=>p && p.pets && p.pets.some(x=>x.uid===pet.uid)) || null;
+}
+function petStage(pet){
+  const o = petOwner(pet); if(!o) return typeof pet.stage==='number' ? pet.stage : 0;
+  const s = playerStage(o), f = pet.form;
+  return (typeof f==='number' && f>=0 && f<s) ? f : s;
+}
+const formName = s => PET_FORMS[Math.max(0,Math.min(PET_FORMS.length-1,s))].name;
+function nextFormHint(p){ const s = playerStage(p); const nf = PET_FORMS[s+1]; return nf ? `Finish ${nf.why} to grow into the ${nf.name} form!` : 'This is the biggest form!'; }
+function checkEvolution(){
+  const s = playerStage(P);
+  if(s <= (P.evoSeen||0)) return false;
+  const from = P.evoSeen||0; P.evoSeen = s; save();
+  const pet = activePet();
+  setTimeout(()=>{
+    if(currentScreen!=='home') return;
+    sfx('evolve'); confetti();
+    openModal(`<h2>${esc(pet.name)} is growing!</h2>
+      <div class="evo"><div class="evo-a">${petSVG(pet,'pt',from)}</div><div class="evo-arrow">➜</div><div class="evo-b">${petSVG(pet,'pt',s)}</div></div>
+      <p>All your pets reached the <b>${esc(formName(s))} form</b> because you finished ${esc(PET_FORMS[s].why)}!</p>
+      <p class="note">${esc(nextFormHint(P))} You can pick any form you have unlocked on the Pets page.</p>
+      ${savedNote()}<div class="acts"><button class="btn big sun" data-m="ok" data-default>Wow!</button></div>`, {ok:()=>{ closeModal(); go('home'); }});
+    say(`${pet.name} is growing! ${formName(s)} form!`);
+    const bd = checkBadges(); setTimeout(()=>badgeToasts(bd), 1200);
+  }, 450);
+  return true;
+}
+
+/* ---------- play rounds: games are earned by doing lessons ---------- */
+const GATED_GAMES = ['bubble','dash','dig','catch','battle'];
+const allLessonsDone = () => lessonDone(LESSONS.length-1);
+const gameAllowed = () => allLessonsDone() || practicing() || (P.gate && P.gate.free > 0);
+const ROUNDS_PER_LESSON = 3;
+function grantRounds(){ P.gate.free = Math.min(9, (P.gate.free||0) + ROUNDS_PER_LESSON); }
+function roundsNote(){
+  if(allLessonsDone() || practicing()) return '';
+  const n = P.gate.free||0;
+  return n>0 ? `<p class="note">🎮 ${n} free game round${n===1?'':'s'} left. Each new lesson gives ${ROUNDS_PER_LESSON} more!</p>`
+    : `<p class="roundsout">🎮 Games are resting. Your next lesson wakes them up!</p>`;
+}
+function roundsBar(){
+  if(allLessonsDone()) return '';
+  if(practicing()) return `<div class="roundsbar on">🎮 Practice time! Games help you master ${keyChipsHTML(focusKeys())}.</div>`;
+  const n = P.gate.free||0, s = nextStep();
+  const nl = s.kind==='lesson' ? LESSONS[s.idx].title : '';
+  return n>0 ? `<div class="roundsbar on">🎮 ${n} free game round${n===1?'':'s'} left. Each new lesson gives ${ROUNDS_PER_LESSON} more!</div>`
+    : `<div class="roundsbar off">😴 Games are resting. Finish <b>${esc(nl)}</b> to wake them up!</div>`;
+}
+function lockedGame(){
+  const s = nextStep();
+  sfx('miss');
+  openModal(`<div style="font-size:64px;line-height:1">😴</div><h2>Games are resting</h2>
+    <p>Learn something new to wake them up! Your next lesson is <b>${esc(s.kind==='lesson' ? LESSONS[s.idx].title : 'ready')}</b>.</p>
+    <p class="note">Every new lesson gives you ${ROUNDS_PER_LESSON} game rounds, and the games after a lesson help you master its keys.</p>
+    <div class="acts"><button class="btn" data-m="no">Not now</button><button class="btn big grass" data-m="go" data-default>${esc(stepLabel(s))}</button></div>`,
+    {no:closeModal, go:()=>goStep(s)});
+  say('Games are resting. Do your next lesson to wake them up!');
+}
+
+/* ---------- blocks ---------- */
+const blockTier = () => 1 + (lessonDone(6)?1:0) + (lessonDone(12)?1:0) + (lessonDone(18)?1:0);
+const TIER_WHY = ['', '', 'the Home Row', 'the Top Row', 'the Bottom Row'];
+const blocksFor = acc => 2 + (acc>=.9 ? 2 : acc>=.75 ? 1 : 0);
+function rewardBlocks(n){
+  if(!n || n<=0) return '';
+  const t = blockTier(), pool = BLOCKS.filter(b=>b.tier<=t), next = BLOCKS.filter(b=>b.tier===t+1);
+  const got = [];
+  for(let i=0;i<n;i++){
+    const b = (next.length && Math.random()<.06) ? rnd(next) : rnd(pool);
+    P.blocks[b.id] = (P.blocks[b.id]||0) + 1; got.push(b.id);
+  }
+  save();
+  return `<p class="blockline">+${n} blocks for your world ${got.map(id=>blockIcon(id,26)).join('')}</p>`;
+}
+const blockCount = () => Object.values(P.blocks).reduce((s,n)=>s+(n||0),0);
+
+/* ---------- critters ---------- */
+const critterOpen = c => c.lesson < 0 || lessonDone(c.lesson);
+const caughtCount = () => CRITTERS.filter(c=>P.critters[c.id]).length;
+function pickCritter(avoid=[]){
+  let pool = CRITTERS.filter(c=>critterOpen(c) && !avoid.includes(c.id));
+  if(!pool.length) pool = CRITTERS.filter(critterOpen);
+  const newest = Math.max(...pool.map(c=>c.lesson));
+  const w = c => (P.critters[c.id] ? 1 : 3) * [0,1,.7,.5,.35][c.rare] * (c.lesson===newest && c.lesson>=0 ? 2 : 1);
+  const tot = pool.reduce((s,c)=>s+w(c),0); let r = Math.random()*tot;
+  for(const c of pool){ r -= w(c); if(r<=0) return c; }
+  return pool[pool.length-1];
+}
+function befriend(c){ const isNew = !P.critters[c.id]; P.critters[c.id] = (P.critters[c.id]||0) + 1; save(); return isNew; }
+// words at the kid's own level, leaning on the keys they are practicing
+function practiceWords(n, minLen=2){
+  let w = gameWords();
+  const longer = w.filter(x=>x.length>=minLen); if(longer.length>=6) w = longer;
+  const fk = focusKeys(), withF = fk.length ? w.filter(x=>fk.some(k=>x.includes(k))) : [];
+  const out = [];
+  for(let i=0;i<n;i++){ let x = (withF.length && Math.random()<.6) ? rnd(withF) : rnd(w); if(out.length && out[out.length-1]===x) x = rnd(w); out.push(x); }
+  return out;
+}
+const tilePetArt = pet => `<svg class="art" viewBox="0 0 120 120">${petSVG(pet).replace(/^<svg[^>]*>|<\/svg>$/g,'')}</svg>`;
+const tileCritterArt = c => critterSVG(c, 'art');
+
+/* ---- Critter Catch ---- */
+SCREENS.catch = () => {
+  currentScreen='catch';
+  const N = P.settings.size==='short' ? 2 : 3;
+  const foes = []; for(let i=0;i<N;i++) foes.push(pickCritter(foes.map(c=>c.id)));
+  const words = practiceWords(60);
+  let ci = -1, c = null, need = 0, hearts = 0, tries = 0, wi = 0, typer = null;
+  let keys = 0, firstOK = 0, chars = 0, start = Date.now();
+  const caught = [], fresh = [];
+  app.innerHTML = topbar() + `<div class="main wrap fit"><div class="typing">
+    <div class="card game-area catch-area" id="area">
+      <div class="hud"><span class="chip" id="cHearts"></span><span class="chip" id="cLeft"></span><span class="spacer"></span><span class="chip">Critter <b id="cNum">1</b>&nbsp;of ${N}</span></div>
+      <div class="thrower">${avatarSVG(P.avatar)}</div>
+      <div class="wild" id="wild"></div>
+      <div class="cr-name" id="cName"></div>
+    </div>
+    <div class="card wordbox"><div class="lbl" id="wlbl"></div><div class="line" id="line"></div></div>
+    ${keyboardHTML(gameLetters().join('')+' ', false)}
+  </div></div>`;
+  const area = $('#area'), wild = $('#wild'), lbl = $('#wlbl');
+  const T0 = sleeper();
+  const hud = () => {
+    $('#cHearts').innerHTML = `<span class="hearts-row">${Array.from({length:need},(_,i)=>`<span class="${i<hearts?'on':''}">♥</span>`).join('')}</span>`;
+    $('#cLeft').innerHTML = `${friendBubbleSVG('mini')} ${tries} left`;
+  };
+  const nextCritter = () => {
+    ci++; if(ci>=N) return finish();
+    c = foes[ci]; need = [0,2,3,3,4][c.rare]; hearts = 0; tries = need + 3;
+    area.style.background = HABITATS[c.hab].bg;
+    $('#cNum').textContent = ci+1;
+    wild.className = 'wild in'; wild.innerHTML = critterSVG(c);
+    $('#cName').innerHTML = `${esc(c.name)} <span class="rare" style="background:${RARE_COL[c.rare]}">${RARE_NAME[c.rare]}</span>${P.critters[c.id]?'':' <span class="rare newc">New!</span>'}`;
+    hud();
+    lbl.textContent = `Type words with no mistakes to throw friend bubbles. ${need} hearts makes a friend!`;
+    say(`You found a ${c.name}! Type the words with no mistakes to make friends.`);
+    nextWord();
+  };
+  const throwBubble = ok => new Promise(res=>{
+    const b = document.createElement('div'); b.className = 'fbub'; b.innerHTML = friendBubbleSVG();
+    area.appendChild(b);
+    const A = area.getBoundingClientRect(), W = wild.getBoundingClientRect();
+    const x0 = A.width*.14, y0 = A.height*.62, x1 = W.left-A.left+W.width/2-22, y1 = W.top-A.top+W.height*.45-22;
+    const xe = ok ? x1 : x0 + (x1-x0)*.55, ye = ok ? y1 : y0 + 30;
+    sfx('throw');
+    const an = b.animate([{transform:`translate(${x0}px,${y0}px) scale(.6)`},{transform:`translate(${(x0+xe)/2}px,${Math.min(y0,ye)-90}px) scale(1)`},{transform:`translate(${xe}px,${ye}px) scale(${ok?1.1:.9})`}],{duration:620,easing:'ease-out',fill:'forwards'});
+    an.onfinish = () => { b.classList.add('pop'); setTimeout(()=>b.remove(), 300); res(); };
+  });
+  const nextWord = () => {
+    const word = words[wi++ % words.length];
+    typer = makeTyper($('#line'), word, {
+      onWrong: T => { if(T.errAt.size===1){ lbl.textContent = 'Oops! Finish the word. Only clean words throw bubbles.'; } },
+      onDone: async T => {
+        keyHandler = null; keys += T.keys; firstOK += T.firstOK; chars += T.text.length;
+        const clean = T.errAt.size===0; tries--;
+        try{
+          await throwBubble(clean);
+          if(!T0.alive()) return;
+          if(clean){
+            hearts++; sfx('pop'); wild.classList.remove('hug'); void wild.offsetWidth; wild.classList.add('hug'); petHeartsAt(wild);
+            lbl.textContent = hearts>=need ? 'Friends!' : rnd(['It likes you!','Great throw!','Clean word, nice!','Almost friends!']);
+          } else { sfx('miss'); wild.classList.remove('dodge'); void wild.offsetWidth; wild.classList.add('dodge'); lbl.textContent = 'The bubble popped. Type the next word with no mistakes!'; }
+          hud();
+          if(hearts>=need){
+            const isNew = befriend(c); caught.push(c); if(isNew) fresh.push(c);
+            wild.classList.add('caught'); sfx('catch'); confetti();
+            say(isNew ? `${c.name} is your new friend! It's in your critter book.` : `${c.name} came back to play!`);
+            lbl.innerHTML = isNew ? `<b>${esc(c.name)}</b> is your new friend! Added to your Critter Book.` : `<b>${esc(c.name)}</b> is happy to see you again!`;
+            await T0.wait(2200); nextCritter(); return;
+          }
+          if(tries<=0){
+            wild.classList.add('away'); lbl.textContent = `${c.name} wandered off. It will come back another time!`; say(`${c.name} wandered off.`);
+            await T0.wait(1800); nextCritter(); return;
+          }
+          await T0.wait(250);
+          nextWord(); keyHandler = k=>typer.key(k);
+        }catch(e){}
+      }
+    });
+    keyHandler = k=>typer.key(k);
+  };
+  const finish = () => {
+    keyHandler = null;
+    const acc = chars ? firstOK/chars : 1;
+    P.games.catch.plays++; P.games.catch.caught += caught.length; P.stats.keys += keys; P.stats.correct += firstOK;
+    const coins = 5 + caught.length*6 + fresh.length*5;
+    addCoins(coins); const goal = recordActivity(Date.now()-start); const bd = checkBadges();
+    sfx('win');
+    const pr = practiceResult(acc);
+    openModal(`<h2>${caught.length ? (fresh.length ? 'New friends!' : 'Friends again!') : 'Good try!'}</h2>
+      <div class="caughtrow">${caught.length ? caught.map(x=>`<div class="cc">${critterSVG(x)}<b>${esc(x.name)}</b>${fresh.includes(x)?'<span class="rare newc">New!</span>':''}</div>`).join('') : '<p>No friends this time. Clean words throw bubbles!</p>'}</div>
+      <div class="stats"><div class="stat"><b>${Math.round(acc*100)}%</b><span>right on first try</span></div><div class="stat"><b>${caughtCount()}/${CRITTERS.length}</b><span>in your book</span></div><div class="stat"><b>+${coins}</b><span>coins</span></div></div>
+      ${pr.note}${goal?`<p><b>${goal}</b></p>`:''}${savedNote()}${gameActs(pr, 'catch', 'Find more', '<button class="btn" data-m="book">Critter Book</button>')}`,
+      {book:()=>go('book'), again:()=>go('catch'), step:()=>goStep(pr.after)});
+    setTimeout(()=>badgeToasts(bd), 900);
+  };
+  nextCritter();
+};
+function petHeartsAt(el){
+  const r = el.getBoundingClientRect();
+  for(let i=0;i<3;i++){ const h=document.createElement('div'); h.className='hearts'; h.textContent='♥'; h.style.left=(r.left+r.width*(.3+Math.random()*.4))+'px'; h.style.top=(r.top+r.height*.15)+'px'; h.style.position='fixed'; h.style.animationDelay=(i*.12)+'s'; document.body.appendChild(h); setTimeout(()=>h.remove(),1400); }
+}
+
+/* ---- Critter Book ---- */
+SCREENS.book = (hab=0) => {
+  currentScreen='book';
+  const render = () => {
+    const list = CRITTERS.filter(c=>c.hab===hab);
+    app.innerHTML = topbar() + `<div class="main wrap"><div class="bookhead"><h2 style="font-size:36px">Critter Book</h2><span class="chip">${caughtCount()} / ${CRITTERS.length}</span><span class="spacer"></span><button class="btn sun" data-act="catch">Find critters</button></div>
+      <div class="tabs booktabs">${HABITATS.map((h,i)=>`<button class="tab ${i===hab?'on':''}" data-act="bhab" data-i="${i}" style="--hc:${h.col}">${esc(h.name)}</button>`).join('')}</div>
+      <div class="book-grid">${list.map(c=>{
+        const n = P.critters[c.id], open = critterOpen(c);
+        if(n) return `<div class="card bk" style="background:${HABITATS[c.hab].col}">${critterSVG(c)}<b>${esc(c.name)}</b><span class="rare" style="background:${RARE_COL[c.rare]}">${RARE_NAME[c.rare]}</span><small>${esc(c.fact)}</small>${n>1?`<span class="cnt">x${n}</span>`:''}</div>`;
+        return `<div class="card bk off">${critterSVG(c,'cr sil')}<b>???</b><small>${open ? 'Lives here. Go find it!' : `Learn <b>${esc(LESSONS[c.lesson].title)}</b> to meet it.`}</small></div>`;
+      }).join('')}</div>
+      <p class="note" style="text-align:center;margin-top:12px">New critters show up as you learn new keys in the lessons.</p></div>`;
+  };
+  SCR.bhab = b => { hab = +b.dataset.i; sfx('key'); render(); };
+  SCR.catch = () => go('catch');
+  render();
+};
+
+/* ---- Critter Battle ---- */
+SCREENS.battle = () => {
+  currentScreen='battle';
+  app.innerHTML = topbar() + `<div class="main wrap fit"><div class="typing"><div class="card game-area arena"></div></div></div>`;
+  const pet = activePet(), st = playerStage(P);
+  const mine = CRITTERS.filter(c=>P.critters[c.id]);
+  const H = {back:()=>go('home'), pet:()=>{ closeModal(); playBattle({kind:'pet', pet}); }};
+  mine.forEach(c=>{ H['c_'+c.id] = ()=>{ closeModal(); playBattle({kind:'critter', c}); }; });
+  openModal(`<h2>Critter Battle</h2><p>Type words to power up attacks. <b>No mistakes</b> means your attack hits. A mistake makes it miss!</p><p><b>Who will battle with you?</b></p>
+    <div class="pickpartner"><button class="pp" data-m="pet" data-default>${petSVG(pet)}<b>${esc(pet.name)}</b><small>${esc(formName(st))} form</small></button>
+    ${mine.map(c=>`<button class="pp" data-m="c_${c.id}">${critterSVG(c)}<b>${esc(c.name)}</b><small>${RARE_NAME[c.rare]}</small></button>`).join('')}</div>
+    ${mine.length?'':'<p class="note">Make critter friends in Critter Catch and they can battle with you too.</p>'}
+    <div class="acts"><button class="btn small" data-m="back">Back home</button></div>`, H);
+};
+function playBattle(partner){
+  const foeC = pickCritter();
+  const st = playerStage(P);
+  const me = partner.kind==='pet'
+    ? {name:partner.pet.name, art:petSVG(partner.pet), max:50+8*st, power:1+.15*st}
+    : {name:partner.c.name, art:critterSVG(partner.c), max:46+8*partner.c.rare, power:1+.12*partner.c.rare};
+  const foe = {name:foeC.name, art:critterSVG(foeC), max:34+14*foeC.rare, rare:foeC.rare};
+  me.hp = me.max; foe.hp = foe.max;
+  const MAX_TURNS = 12, words = practiceWords(MAX_TURNS+2, 3);
+  const rec = P.stats.recentWpm.length ? P.stats.recentWpm.reduce((a,b)=>a+b,0)/P.stats.recentWpm.length : 8;
+  const fastWpm = Math.max(6, rec*1.15);
+  let turn = 0, streak = 0, typer = null, keys = 0, firstOK = 0, chars = 0, start = Date.now(), cleanHits = 0;
+  const area = $('.arena');
+  area.style.background = HABITATS[foeC.hab].bg;
+  area.innerHTML = `<div class="fighter me" id="fMe"><div class="hpbox"><b>${esc(me.name)}</b><div class="hp"><i id="hpMe"></i></div></div><div class="fart">${me.art}</div></div>
+    <div class="bmsg" id="bmsg">${esc(foe.name)} wants to battle!</div>
+    <div class="fighter foe" id="fFoe"><div class="hpbox"><b>${esc(foe.name)}</b><div class="hp"><i id="hpFoe"></i></div></div><div class="fart">${foe.art}</div></div>`;
+  const typing = $('.typing');
+  typing.insertAdjacentHTML('beforeend', `<div class="card wordbox"><div class="lbl" id="wlbl">Turn 1</div><div class="line" id="line"></div></div>${keyboardHTML(gameLetters().join('')+' ', false)}`);
+  requestAnimationFrame(()=>layoutDots());
+  const msg = t => { $('#bmsg').innerHTML = t; };
+  const bars = () => { $('#hpMe').style.width = Math.max(0,me.hp/me.max*100)+'%'; $('#hpFoe').style.width = Math.max(0,foe.hp/foe.max*100)+'%';
+    $('#hpMe').classList.toggle('low', me.hp/me.max<.3); $('#hpFoe').classList.toggle('low', foe.hp/foe.max<.3); };
+  const pop = (sel, text, cls='') => { const el = $(sel); const d = document.createElement('div'); d.className = 'dmg '+cls; d.textContent = text; el.appendChild(d); setTimeout(()=>d.remove(), 1000); };
+  const anim = (sel, cls) => { const el = $(sel); el.classList.remove(cls); void el.offsetWidth; el.classList.add(cls); };
+  const T0 = sleeper();
+  bars();
+  say(`${foe.name} wants to battle! Type with no mistakes to hit.`);
+  const nextTurn = () => {
+    $('#wlbl').textContent = `Turn ${turn+1}${streak>=2?` · ${streak} clean in a row!`:''}`;
+    typer = makeTyper($('#line'), words[turn % words.length], {
+      onWrong: T => { if(T.errAt.size===1) msg('Oops, a mistake! This attack will miss. Finish the word.'); },
+      onDone: async T => {
+        keyHandler = null; keys += T.keys; firstOK += T.firstOK; chars += T.text.length; turn++;
+        const clean = T.errAt.size===0;
+        const wpm = T.activeMs > 0 ? (T.text.length/5)/(T.activeMs/60000) : 0;
+        try{
+          if(clean){
+            streak++; cleanHits++;
+            const fast = T.text.length>=3 && wpm >= fastWpm;
+            const dmg = Math.round(14 * me.power * (1 + .1*Math.min(streak-1,3)) * (fast ? 1.5 : 1));
+            anim('#fMe','lunge'); sfx('hit'); await T0.wait(260); anim('#fFoe','hurt');
+            foe.hp -= dmg; bars(); pop('#fFoe', '-'+dmg, fast?'fast':'');
+            msg(fast ? `Speedy clean hit! <b>${dmg}</b>` : streak>=2 ? `Clean hit, ${streak} in a row! <b>${dmg}</b>` : `Clean hit! <b>${dmg}</b>`);
+          } else {
+            streak = 0; sfx('miss'); anim('#fMe','whiff'); msg('Your attack missed! Clean words always hit.');
+            pop('#fMe','miss','miss');
+          }
+          await T0.wait(800);
+          if(foe.hp<=0) return end('win');
+          const fd = 4 + 2*foe.rare + Math.floor(Math.random()*4);
+          anim('#fFoe','lunge-r'); await T0.wait(260); anim('#fMe','hurt'); sfx('dig');
+          me.hp -= fd; bars(); pop('#fMe','-'+fd);
+          msg(`${esc(foe.name)} bumps back! <b>${fd}</b>`);
+          await T0.wait(700);
+          if(me.hp<=0) return end('lose');
+          if(turn>=MAX_TURNS) return end('draw');
+          nextTurn();
+        }catch(e){}
+      }
+    });
+    keyHandler = k=>typer.key(k);
+  };
+  const end = result => {
+    keyHandler = null; kbHighlight(null);
+    const acc = chars ? firstOK/chars : 1;
+    P.games.battle.plays++; if(result==='win') P.games.battle.wins++;
+    P.stats.keys += keys; P.stats.correct += firstOK;
+    let isNew = false;
+    if(result==='win'){ isNew = befriend(foeC); anim('#fFoe','beaten'); sfx('catch'); confetti(); }
+    const coins = result==='win' ? 15 + 5*foe.rare : 5;
+    addCoins(coins); const goal = recordActivity(Date.now()-start); const bd = checkBadges();
+    sfx(result==='win'?'win':'line');
+    const pr = practiceResult(acc);
+    say(result==='win' ? (isNew ? `You won! ${foe.name} wants to be your friend!` : 'You won the battle!') : result==='draw' ? `${foe.name} got tired and went home.` : `${me.name} needs a rest. Clean words hit hardest!`);
+    openModal(`<h2>${result==='win'?'You won!':result==='draw'?'Good battle!':'Nice try!'}</h2>
+      <div class="caughtrow"><div class="cc">${foe.art}<b>${esc(foe.name)}</b>${isNew?'<span class="rare newc">New friend!</span>':''}</div></div>
+      <p>${result==='win' ? (isNew ? `${esc(foe.name)} liked your typing so much it joined your Critter Book!` : `${esc(foe.name)} had fun battling you.`) : result==='draw' ? `${esc(foe.name)} got tired and went home.` : `${esc(me.name)} needs a rest. Type with no mistakes so every attack hits!`}</p>
+      <div class="stats"><div class="stat"><b>${cleanHits}/${turn}</b><span>clean hits</span></div><div class="stat"><b>${Math.round(acc*100)}%</b><span>right on first try</span></div><div class="stat"><b>+${coins}</b><span>coins</span></div></div>
+      ${pr.note}${goal?`<p><b>${goal}</b></p>`:''}${savedNote()}${gameActs(pr, 'battle', 'Battle again', '<button class="btn" data-m="home">Home</button>')}`,
+      {home:()=>go('home'), again:()=>go('battle'), step:()=>goStep(pr.after)});
+    setTimeout(()=>badgeToasts(bd), 900);
+  };
+  setTimeout(()=>{ if(T0.alive()) nextTurn(); }, 900);
+}
+
+/* ---- Block Builder ---- */
+const WORLD_W = 24, WORLD_H = 13;
+function worldCells(){ const g = P.world.g; return (typeof g==='string' && g.length===WORLD_W*WORLD_H) ? [...g] : Array(WORLD_W*WORLD_H).fill('.'); }
+SCREENS.build = () => {
+  currentScreen='build';
+  const cells = worldCells();
+  let tool = null, tab = 'blocks', painting = false, lastCell = -1;
+  const friendsList = () => [{id:'pet', art:petSVG(activePet()), name:activePet().name}, ...CRITTERS.filter(c=>P.critters[c.id]).map(c=>({id:c.id, art:critterSVG(c), name:c.name}))];
+  const friendArt = id => id==='pet' ? petSVG(activePet()) : (critterById(id) ? critterSVG(critterById(id)) : '');
+  const tier = blockTier();
+  const draw = () => {
+    let s = '';
+    for(let y=0;y<WORLD_H;y++) for(let x=0;x<WORLD_W;x++){ const ch = cells[y*WORLD_W+x]; if(ch!=='.' && blockById(ch)) s += `<g transform="translate(${x*24} ${y*24})">${blockArt(ch)}</g>`; }
+    for(const [x,y,id] of P.world.c){ const a = friendArt(id); if(a) s += a.replace(/^<svg /, `<svg x="${x*24-12}" y="${y*24-24}" width="48" height="48" `); }
+    $('#wsvg').innerHTML = s;
+  };
+  const palette = () => {
+    if(tab==='friends') return friendsList().map(f=>{ const on = P.world.c.some(c=>c[2]===f.id); return `<button class="bpick ${tool==='f:'+f.id?'on':''}" data-act="btool" data-t="f:${f.id}"><span class="bi">${f.art}</span><small>${esc(f.name)}${on?' ✓':''}</small></button>`; }).join('');
+    return BLOCKS.map(b=>{ const n = P.blocks[b.id]||0, locked = b.tier>tier && !n;
+      return `<button class="bpick ${tool===b.id?'on':''} ${locked||!n?'empty':''}" data-act="btool" data-t="${b.id}" ${locked?`title="Finish ${TIER_WHY[b.tier]}"`:''}><span class="bi">${locked ? ICON.lock : blockIcon(b.id, 40)}</span><small>${locked ? '???' : esc(b.name)}</small><span class="bn">${n}</span></button>`; }).join('');
+  };
+  const side = () => { $('#bpal').innerHTML = palette(); $('#bcount').textContent = blockCount(); };
+  app.innerHTML = topbar() + `<div class="main wrap fit"><div class="builder">
+    <div class="card worldcard"><svg id="wsvg" class="world" viewBox="0 0 ${WORLD_W*24} ${WORLD_H*24}" preserveAspectRatio="xMidYMax meet" role="img" aria-label="Your block world"></svg></div>
+    <div class="card bpanel">
+      <div class="bhead"><b>Your blocks: <span id="bcount"></span></b></div>
+      <div class="tabs"><button class="tab ${tab==='blocks'?'on':''}" data-act="btab" data-k="blocks">Blocks</button><button class="tab" data-act="btab" data-k="friends">Friends</button><button class="tab bera ${tool==='erase'?'on':''}" data-act="btool" data-t="erase">🧽 Eraser</button></div>
+      <div class="bpal" id="bpal"></div>
+      <p class="note">Tap a block, then tap the world to place it. The eraser gives blocks back. Earn more blocks by finishing lessons and games!</p>
+    </div></div></div>`;
+  const svg = $('#wsvg');
+  const cellAt = e => { const r = svg.getBoundingClientRect(); const vb = svg.viewBox.baseVal; const s = Math.min(r.width/vb.width, r.height/vb.height); const ox = (r.width - vb.width*s)/2, oy = r.height - vb.height*s;
+    const x = Math.floor((e.clientX - r.left - ox)/s/24), y = Math.floor((e.clientY - r.top - oy)/s/24); return (x<0||y<0||x>=WORLD_W||y>=WORLD_H) ? null : {x,y,i:y*WORLD_W+x}; };
+  const apply = (c, first) => {
+    if(!c || !tool) { if(first && !tool) toast('Pick a block first!'); return; }
+    if(c.i===lastCell && !first) return; lastCell = c.i;
+    const cur = cells[c.i];
+    if(tool==='erase'){
+      const fi = P.world.c.findIndex(f=>f[0]===c.x && (f[1]===c.y || f[1]===c.y+1));
+      if(fi>=0 && first){ P.world.c.splice(fi,1); sfx('pop'); }
+      else if(cur!=='.'){ cells[c.i]='.'; P.blocks[cur]=(P.blocks[cur]||0)+1; sfx('dig'); }
+      else return;
+    } else if(tool.startsWith('f:')){
+      if(!first) return;
+      const id = tool.slice(2), have = P.world.c.findIndex(f=>f[2]===id);
+      if(have>=0) P.world.c.splice(have,1);
+      if(P.world.c.length>=12){ toast('Your world is full of friends!'); return; }
+      P.world.c.push([c.x,c.y,id]); sfx('pet');
+    } else {
+      if(cur===tool) return;
+      if(!(P.blocks[tool]>0)){ if(first){ sfx('miss'); toast('Out of those blocks! Play to earn more.'); } return; }
+      if(cur!=='.') P.blocks[cur]=(P.blocks[cur]||0)+1;
+      cells[c.i]=tool; P.blocks[tool]--; P.world.placed++; sfx('place');
+    }
+    P.world.g = cells.join(''); save(); draw(); side();
+  };
+  svg.addEventListener('pointerdown', e=>{ e.preventDefault(); painting = true; lastCell = -1; try{ svg.setPointerCapture(e.pointerId); }catch(_){} apply(cellAt(e), true); });
+  svg.addEventListener('pointermove', e=>{ if(painting && tool && !tool.startsWith('f:')) apply(cellAt(e), false); });
+  const stop = () => { if(painting){ painting=false; const bd = checkBadges(); if(bd.length) badgeToasts(bd); } };
+  svg.addEventListener('pointerup', stop); svg.addEventListener('pointercancel', stop);
+  SCR.btab = b => { tab = b.dataset.k; if(tab==='blocks' && tool && tool.startsWith('f:')) tool = null; $$('.bpanel .tab[data-k]').forEach(t=>t.classList.toggle('on', t.dataset.k===tab)); side(); };
+  SCR.btool = b => { const t = b.dataset.t; if(t!=='erase' && !t.startsWith('f:') && !(P.blocks[t]>0)){ sfx('miss'); const bl = blockById(t); toast(bl.tier>tier ? `Finish ${TIER_WHY[bl.tier]} to find ${bl.name} blocks!` : `No ${bl.name} blocks yet. Play to earn some!`); return; }
+    tool = tool===t ? null : t; sfx('key'); $('.bera').classList.toggle('on', tool==='erase'); side(); };
+  draw(); side();
+  if(!P.world.gift){
+    P.world.gift = 1; const pack = {g:8,d:6,s:4,w:6,l:4,a:2};
+    for(const k in pack) P.blocks[k] = (P.blocks[k]||0) + pack[k];
+    save(); side();
+    setTimeout(()=>{ openModal(`<h2>Welcome, builder!</h2><p style="display:flex;gap:4px;justify-content:center;flex-wrap:wrap">${Object.keys(pack).map(k=>blockIcon(k,40)).join('')}</p><p>Here are <b>30 blocks</b> to start your world. Finish lessons and games to earn more, and new kinds of blocks show up as you learn more keys!</p><div class="acts"><button class="btn big grass" data-m="ok" data-default>Let's build!</button></div>`, {ok:closeModal}); say('Welcome, builder! Here are 30 blocks to start your world.'); }, 300);
+  }
+};
 /* ---------- boot ---------- */
 loadDB();
 loadVoices();
