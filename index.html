@@ -2129,7 +2129,7 @@ SCREENS.grown = () => {
       <p class="note">Voices come from this Chromebook, not the game. The ones marked Natural or Google sound most like a real person, and Google voices need the internet. "Best available" picks one for you.</p></div>
     <div class="card sec"><h2>Saving</h2>
       <p>${cloudOn() ? 'Progress saves to your Google Drive (the "Paws & Keys saves" sheet) and to this browser, so each player can play on any computer.' : 'Progress saves automatically in this browser, on this device.'} ${storageOK?'Saving is working.':'<b style="color:var(--berry-d)">This browser is blocking saving right now.</b>'} <span id="persist"></span></p>
-      <p class="note">Clearing browsing data, a guest or incognito window, or a different Chromebook will not have this progress. Make a backup code now and then, and paste it below to bring a player back.</p>
+      <p class="note">${cloudOn() ? 'Without internet the game keeps saving in this browser and copies to Drive later. The Backups tab in the sheet keeps older copies, and a backup code still works too.' : 'Clearing browsing data, a guest or incognito window, or a different Chromebook will not have this progress. Make a backup code now and then, and paste it below to bring a player back.'}</p>
       <div class="acts" style="display:flex;gap:10px;flex-wrap:wrap"><button class="btn wave" data-act="gall">Backup code for everyone</button></div>
       <textarea id="gin" placeholder="Paste a backup code here"></textarea>
       <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap"><button class="btn grass" data-act="grestore">Restore from code</button><span id="gmsg" class="note"></span></div>
@@ -2149,7 +2149,7 @@ SCREENS.grown = () => {
   SCR.gcoins = b => { const p = DB.players[b.dataset.id]; p.coins += 50; p.updated = Date.now(); saveNow(); go('grown'); };
   SCR.gdel = b => {
     const p = DB.players[b.dataset.id];
-    openModal(`<h2>Delete ${esc(p.name)}?</h2><p>This removes all of ${esc(p.name)}'s progress from this browser. Make a backup code first if you might want it back.</p><div class="acts"><button class="btn" data-m="no" data-default>Keep</button><button class="btn berry" data-m="yes">Delete</button></div>`, {
+    openModal(`<h2>Delete ${esc(p.name)}?</h2><p>This removes all of ${esc(p.name)}'s progress from ${cloudOn() ? 'every computer and from Google Drive' : 'this browser'}. Make a backup code first if you might want it back.</p><div class="acts"><button class="btn" data-m="no" data-default>Keep</button><button class="btn berry" data-m="yes">Delete</button></div>`, {
       no: closeModal, yes: ()=>{ delete DB.players[p.id]; DB.order = DB.order.filter(x=>x!==p.id); cloudDirty.delete(p.id); delete pushedAt[p.id]; cloudDelete(p.id); if(prevP && prevP.id===p.id) { P=null; } saveNow(); go('grown'); }
     });
   };
