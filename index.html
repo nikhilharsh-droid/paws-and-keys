@@ -817,7 +817,7 @@ function localWrite(){ DB.synced = pushedAt; try{ localStorage.setItem(STORE_KEY
 function saveNow(){ clearTimeout(saveT); localWrite(); markDirty(); flashSaved(); return storageOK; }
 
 /* ---------- Google Drive sync, through the family's own save script ---------- */
-const CLOUD_URL = '';
+const CLOUD_URL = 'https://script.google.com/macros/s/AKfycbypBB0kBLUHpm1B-P3fFZzo-OjPYshvgp_n2nPsoK1azI5SzzRm7Ji8crb1sklvNEVi6g/exec';
 let cloudState = 'off';                 // off | syncing | ok | offline
 let cloudT = null, cloudBusy = false;
 const cloudDirty = new Set(), pushedAt = {};
