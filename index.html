@@ -320,6 +320,7 @@ h1,h2,h3{font-family:var(--display);margin:0;line-height:1.05;text-wrap:balance}
 .tile .gk b{font-family:var(--kid);letter-spacing:.06em;color:var(--ink)}
 .lblbtn{display:inline-flex;align-items:center;gap:6px;min-height:52px;padding:4px 14px 4px 10px;border-radius:16px;font-family:var(--display);font-weight:800;font-size:18px}
 .lblbtn svg{width:30px;height:30px}
+.hubbtn{text-decoration:none;color:inherit}.hubbtn .hubic{font-size:24px;line-height:1}
 /* finger gym */
 .gym{display:flex;flex-direction:column;gap:14px}
 .gcoach{display:flex;gap:18px;align-items:center;padding:14px 18px;flex-wrap:wrap}
@@ -1481,6 +1482,7 @@ function topbar(){
     <button class="btn savebtn${storageOK?'':' bad'}" id="saveBtn" data-act="savebtn" aria-label="Save">${saveBtnHTML()}</button>
     <button class="btn icon-btn" data-act="sound" aria-label="Sound on or off">${P.settings.sound?ICON.sound:ICON.mute}</button>
     <button class="btn lblbtn" data-act="settings" aria-label="Settings">${ICON.gear}<span>Settings</span></button>
+    ${currentScreen==='home' ? '<a class="btn lblbtn hubbtn" href="https://nikhilharsh.com" aria-label="Back to the family hub"><span class="hubic" aria-hidden="true">🏡</span><span>Family hub</span></a>' : ''}
   </div>`;
 }
 const ACT = {
@@ -1704,7 +1706,7 @@ SCREENS.profiles = () => {
       <button class="card pcard add" data-act="new"><div class="plus">+</div><div class="nm">New player</div></button>
     </div>
     ${cloudOn() ? `<p class="sub savedsub" id="cloudline">${cloudLine()}</p>` : (list.length && storageOK?'<p class="sub savedsub"><span class="ck">✓</span> Progress saves by itself on this Chromebook</p>':'')}
-    <div class="footlinks"><button class="btn small" data-act="grown">Grown-ups</button></div>
+    <div class="footlinks"><a class="btn small hubbtn" href="https://nikhilharsh.com"><span class="hubic" aria-hidden="true">🏡</span> Family hub</a><button class="btn small" data-act="grown">Grown-ups</button></div>
     ${storageOK?'':'<p class="sub" style="color:var(--berry-d)">This browser is blocking saving. Progress will be lost when the page closes.</p>'}
   </div>`;
   SCR.pick = b => { P = DB.players[b.dataset.id]; DB.last = P.id; saveNow(); sfx('pet'); go('home'); };
